@@ -28,4 +28,12 @@
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/light_brown</item>
     </style>
+    <style name="ButtonBlack" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/statelist_black</item>
+        <item name="elevation">5dp</item>
+    </style>
+    <style name="ButtonLight" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/statelist_light</item>
+
+    </style>
 </resources>
