@@ -21,7 +21,7 @@ TextView txt_btn_sign_up;
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.pass.net4_proyecto_integrador.LogInActivity.this, MainActivity.class);
+                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
