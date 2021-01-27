@@ -18,7 +18,7 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
+        setContentView(R.layout.activity_splash_screen);
 
         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation_splash_screen);
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation_splash_screen);
