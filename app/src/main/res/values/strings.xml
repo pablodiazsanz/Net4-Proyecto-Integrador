@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Net4</string>
+    <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
+    <string name="btn_send_email_recovery">Enviar</string>
 </resources>
