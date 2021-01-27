@@ -28,12 +28,12 @@ TextView txt_btn_sign_up;
             }
         });
 
-        /*txt_btn_sign_up.setOnClickListener(new View.OnClickListener() {
+        txt_btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogIn.this, SignUp.class);
+                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }
