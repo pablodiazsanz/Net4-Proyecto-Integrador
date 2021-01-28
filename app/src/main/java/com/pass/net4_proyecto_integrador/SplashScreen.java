@@ -8,8 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.pass.net4_proyecto_integrador.MainActivity;
-
 public class SplashScreen extends Activity {
 
     private Animation topAnimation, bottomAnimation;
@@ -38,7 +36,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashScreen
-                        .this, LogInActivity.class);
+                        .this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

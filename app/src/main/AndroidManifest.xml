@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pass.net4_proyecto_integrador">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <!-- permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logoapp"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logoapp_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Net4">
-        <activity android:name=".SignUpActivity"
-            android:theme="@style/Theme.Net4.NoActionBar"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +26,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogInActivity"
-            android:theme="@style/Theme.Net4.NoActionBar" />
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity" />
     </application>
 
