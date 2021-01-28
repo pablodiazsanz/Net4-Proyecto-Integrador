@@ -23,19 +23,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Comience aqui su experiencia! "
-                    android:textColor="@color/whiteTextColor"
-                    android:textSize="18sp" />
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+
                     android:src="@drawable/logo_aniadir_imagen" />
             </RelativeLayout>
             <androidx.cardview.widget.CardView
