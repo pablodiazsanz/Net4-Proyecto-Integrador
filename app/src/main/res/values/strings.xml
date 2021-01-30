@@ -5,4 +5,6 @@
     <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
     <string name="btn_send_email_recovery">Enviar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="map_key" translatable="false">AIzaSyD37kkkNAF6F647pdbvn7RJw47QmDgoFFo</string>
 </resources>
