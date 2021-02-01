@@ -27,6 +27,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     private BottomNavigationView bnv;
     private GoogleMap mMap;
+    private OnMapReadyCallback omrc = this;
     private FusedLocationProviderClient fusedLocationClient;
     private Location currentlocation;
     private static final int REQUEST_CODE = 101;
@@ -43,12 +44,41 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         bnv.getMenu().getItem(2).setEnabled(false);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
     }
 
     private void fetchLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }else{
+            obtenerLocalizacion();
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng ubi = new LatLng(latitud, longitud);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 5));
+        mMap.addMarker(new MarkerOptions().position(ubi).title("Mi Ubicacion"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                obtenerLocalizacion();
+            }
+        }
+    }
+
+    private void obtenerLocalizacion() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         Task<Location> task = fusedLocationClient.getLastLocation();
@@ -59,37 +89,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     currentlocation = location;
                     latitud = currentlocation.getLatitude();
                     longitud = currentlocation.getLongitude();
-                    Log.d("LyL","La latitud:" + latitud + " Longitud:" + longitud);
                     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(MainActivity.this);
-                    fetchLastLocation();
+                    mapFragment.getMapAsync(omrc);
                 }
             }
         });
-    }
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng ubi = new LatLng(currentlocation.getLatitude(), currentlocation.getLongitude());
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi,5));
-        mMap.addMarker(new MarkerOptions().position(ubi).title("Mi Ubicacion"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi));
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case REQUEST_CODE:
-                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    fetchLastLocation();
-                }
-                break;
-        }
     }
 
 }
