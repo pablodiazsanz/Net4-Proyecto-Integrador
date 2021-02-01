@@ -8,7 +8,8 @@
     android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:id="@+id/img_ilustration"
@@ -32,6 +33,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <TextView
+                    style="@style/parent"
+                    android:layout_marginTop="140dp"
+                    android:onClick="onLoginClick"
+                    android:text="@string/login_texto"
+                    android:textColor="@color/themeColor"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="100dp"
@@ -45,6 +55,8 @@
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:textColorHint="@color/colorAccent"
                 app:boxStrokeColor="@color/colorAccent"
                 app:endIconTint="@color/colorAccent"
@@ -64,6 +76,8 @@
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:textColorHint="@color/colorAccent"
                 app:boxStrokeColor="@color/colorAccent"
                 app:endIconTint="@color/colorAccent"
@@ -92,7 +106,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Forgot Password?"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/newsMoreTextSize" />
+                android:textSize="@dimen/newsMoreTextSize"
+                android:layout_marginRight="20dp"/>
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btn_login"
