@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -16,16 +17,13 @@ public class SplashScreen extends Activity {
 
     private Animation topAnimation, bottomAnimation;
     private ImageView icon, name;
+    private View screen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT){
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
-        setContentView(R.layout.activity_splash_screen);
+        quitarBarraNavegacionEstado();
 
         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation_splash_screen);
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation_splash_screen);
@@ -51,5 +49,17 @@ public class SplashScreen extends Activity {
                 finish();
             }
         }, 2500);
+    }
+
+    private void quitarBarraNavegacionEstado() {
+        screen = getWindow().getDecorView();
+        // Hide both the navigation bar and the status bar.
+        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+        // a general rule, you should design your app to hide the status bar whenever you
+        // hide the navigation bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        screen.setSystemUiVisibility(uiOptions);
+        setContentView(R.layout.activity_splash_screen);
     }
 }

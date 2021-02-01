@@ -8,8 +8,7 @@
     android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".LoginActivity"
-    android:fitsSystemWindows="true">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/img_ilustration"

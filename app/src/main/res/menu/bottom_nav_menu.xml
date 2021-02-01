@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/miHome"
         android:icon="@drawable/ic_home"
-        android:title="" />
+        app:iconTint="?attr/colorAccent"
+        android:title="Home" />
 
     <item android:id="@+id/miActivity"
         android:icon="@drawable/ic_activity"
-        android:title="" />
+        android:title="Activity" />
 
     <item android:id="@+id/barPlaceholder"
         android:title="" />
 
     <item android:id="@+id/miNotifications"
         android:icon="@drawable/ic_notifications"
-        android:title="" />
+        android:title="Noti" />
 
     <item android:id="@+id/miProfile"
         android:icon="@drawable/ic_profile"
-        android:title="" />
+        android:title="Prof" />
 
 </menu>
