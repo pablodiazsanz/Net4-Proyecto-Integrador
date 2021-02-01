@@ -2,8 +2,12 @@ package com.pass.net4_proyecto_integrador;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -16,6 +20,11 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT){
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         setContentView(R.layout.activity_splash_screen);
 
         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation_splash_screen);
@@ -26,6 +35,7 @@ public class SplashScreen extends Activity {
 
         icon.setAnimation(topAnimation);
         name.setAnimation(bottomAnimation);
+
 
         openApp(true);
     }

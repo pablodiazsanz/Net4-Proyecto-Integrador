@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Net4</string>
+    <string name="login_texto">Log In</string>
+    <string name="register_texto">Sign Up</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
