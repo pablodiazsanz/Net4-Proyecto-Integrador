@@ -3,6 +3,7 @@ package com.pass.net4_proyecto_integrador;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -115,7 +116,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, oyente_localizaciones);
-
     }
 
     @Override
