@@ -35,7 +35,7 @@
                 <TextView
                     style="@style/parent"
                     android:layout_marginTop="140dp"
-                    android:onClick="onLoginClick"
+                    android:onClick="loginToRegisterSidebarClick"
                     android:text="@string/login_texto"
                     android:textColor="@color/themeColor"
                     android:textSize="30sp"
@@ -122,7 +122,7 @@
             <TextView
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:onClick="onLoginClick"
+                android:onClick="loginToRegisterSidebarClick"
                 android:text="New user? Register Now"
                 android:textAlignment="center"
                 android:textColor="@color/themeColor"
@@ -184,6 +184,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="30dp"
-        android:onClick="onLoginClick"
+        android:onClick="loginToRegisterSidebarClick"
         android:src="@drawable/ic_add_img" />
 </RelativeLayout>

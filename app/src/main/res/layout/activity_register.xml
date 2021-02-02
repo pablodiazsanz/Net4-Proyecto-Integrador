@@ -26,7 +26,7 @@
                 <TextView
                     style="@style/parent"
                     android:layout_marginTop="30dp"
-                    android:onClick="onLoginClick"
+                    android:onClick="registerToLoginSidebarClick"
                     android:text="@string/register_texto"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30sp"
@@ -196,6 +196,6 @@
         android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
         android:adjustViewBounds="false"
-        android:onClick="onLoginClick"
+        android:onClick="registerToLoginSidebarClick"
         android:src="@drawable/ic_back_img" />
 </RelativeLayout>
