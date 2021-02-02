@@ -1,11 +1,18 @@
 package com.pass.net4_proyecto_integrador;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -22,14 +29,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+    //Barra de abajo
     private BottomNavigationView bnv;
-    private FusedLocationProviderClient fusedLocationClient;
+    //Para el Mapa
     private GoogleMap mMap;
     private OnMapReadyCallback omrc = this;
     private Location currentlocation;
+    private LocationManager lm;
     private static final int REQUEST_CODE = 101;
     private double longitud;
     private double latitud;
+    //context
+    private Context contexto = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +51,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         bnv.setBackground(null);
         bnv.getMenu().getItem(2).setEnabled(false);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
-    }
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-    void fetchLastLocation() {
         //Aqui prguntaremos si quiere dar permiso de ubicacion a la aplicacion en caso de que no tenga ira al metodo onRequestPermissionsResult(),
         //si ya tiene los permiso ira directamente a obtenerLocalizacion()
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -67,17 +75,36 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void obtenerLocalizacion() {
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Aqui revisamos si estan los permisos
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         //Aqui recojemos las ultimas ubicaciones
-        Task<Location> task = fusedLocationClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+        currentlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //Este toast es para que muestre el mensaje de que busca una ubicacion
+        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_LONG);
+        toast.show();
+        //Aqui ponemos un oyesnte a la ubicacion y en caso de que sea nulo le decimos que ponga la ultima encontrada
+        //y si no que compruebe si la latitud y longitud no son nulas
+        //en caso de que sean busca otra vez y si las encuentra que lo marque en el mapa
+        LocationListener oyente_localizaciones = new LocationListener() {
             @Override
-            public void onSuccess(Location location) {
+            public void onLocationChanged(@NonNull Location location) {
                 if (location != null) {
-                    currentlocation = location;
+                    location = currentlocation;
+                    if (currentlocation == null){
+                        obtenerLocalizacion();
+                    }else{
+                        latitud = currentlocation.getLatitude();
+                        longitud = currentlocation.getLongitude();
+                        // Para llamar al metodo onMapReady
+                        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                .findFragmentById(R.id.map);
+                        mapFragment.getMapAsync(omrc);
+                        lm.removeUpdates(this);
+                    }
+                }else{
                     latitud = currentlocation.getLatitude();
                     longitud = currentlocation.getLongitude();
                     // Para llamar al metodo onMapReady
@@ -86,7 +113,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     mapFragment.getMapAsync(omrc);
                 }
             }
-        });
+        };
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, oyente_localizaciones);
+
     }
 
     @Override
