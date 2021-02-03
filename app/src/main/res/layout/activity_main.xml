@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
     tools:context=".MainActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,15 +14,16 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         tools:context=".MapsActivity" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fabCradleMargin="20dp"
+        app:fabCradleMargin="10dp"
         app:fabCradleVerticalOffset="10dp"
-        app:fabCradleRoundedCornerRadius="20dp"
+        app:fabCradleRoundedCornerRadius="10dp"
         android:layout_gravity="bottom" >
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
