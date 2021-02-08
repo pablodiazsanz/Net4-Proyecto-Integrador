@@ -2,24 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/miHome"
+    <item
+        android:id="@+id/navigation_maps"
         android:icon="@drawable/ic_home"
-        app:iconTint="?attr/colorAccent"
-        android:title="Home" />
-
-    <item android:id="@+id/miActivity"
+        android:title="@string/title_maps" />
+    <item
+        android:id="@+id/navigation_activity"
         android:icon="@drawable/ic_activity"
-        android:title="Activity" />
-
-    <item android:id="@+id/barPlaceholder"
-        android:title="" />
-
-    <item android:id="@+id/miNotifications"
+        android:title="@string/title_activity" />
+    <item
+        android:id="@+id/navigation_help_alert"
+        android:icon="@drawable/ic_add"
+        android:title="Pedir Ayuda" />
+    <item
+        android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_notifications"
-        android:title="Noti" />
-
-    <item android:id="@+id/miProfile"
+        android:title="@string/title_chat" />
+    <item
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Prof" />
+        android:title="@string/title_profile" />
 
 </menu>

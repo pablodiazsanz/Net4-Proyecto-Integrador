@@ -8,4 +8,9 @@
     <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
     <string name="btn_send_email_recovery">Enviar</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_maps">Mapa</string>
+    <string name="title_chat">Mensajes</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_activity">Actividad</string>
 </resources>
