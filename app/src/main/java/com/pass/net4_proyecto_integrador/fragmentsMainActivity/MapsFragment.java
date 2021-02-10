@@ -144,7 +144,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
         } else {
-            // When location serice is not enabled
+            // When location service is not enabled
             // Open location setting
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -153,7 +153,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(mView, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         mMapView = mView.findViewById(R.id.map);
         if (mMapView != null){
