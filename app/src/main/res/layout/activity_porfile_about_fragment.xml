@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/login_bk_color"
-    android:focusableInTouchMode="true"
-    android:gravity="center"
-    android:fitsSystemWindows="true"
-    tools:context=".LoginActivity">
+    tools:context=".PorfileAboutFragmentActivity"
+    android:orientation="vertical"
+    android:gravity="center">
 
-    <ImageView
-        android:id="@+id/img_ilustration"
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:srcCompat="@drawable/illustration" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     style="@style/parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="140dp"
-                    android:onClick="loginToRegisterSidebarClick"
+
                     android:text="@string/login_texto"
                     android:textColor="@color/themeColor"
                     android:textSize="30sp"
-                    android:layout_marginLeft="10dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -54,13 +47,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin"
+
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/loginViewsMargin"
                 android:layout_marginRight="20dp"
-                android:textColorHint="@color/colorAccent"
-                app:boxStrokeColor="@color/colorAccent"
-                app:endIconTint="@color/colorAccent"
-                app:hintTextColor="@color/colorAccent">
+                android:textColorHint="@color/colorAccent">
 
                 <EditText
                     android:id="@+id/editTextEmail"
@@ -75,13 +66,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
+
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:textColorHint="@color/colorAccent"
-                app:boxStrokeColor="@color/colorAccent"
-                app:endIconTint="@color/colorAccent"
-                app:hintTextColor="@color/colorAccent">
+                android:textColorHint="@color/colorAccent">
 
                 <EditText
                     android:id="@+id/editTextPassword"
@@ -104,42 +92,42 @@
                 style="@style/viewParent"
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:text="Forgot Password?"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/newsMoreTextSize"
-                android:layout_marginRight="20dp"/>
+                android:textSize="@dimen/newsMoreTextSize" />
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btn_login"
                 style="@style/loginButton"
+
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:text="Login"
-                app:initialCornerAngle="27dp"
-                app:spinning_bar_color="#FFF"
-                app:spinning_bar_padding="6dp"
-                app:spinning_bar_width="4dp" />
+                android:text="Login" />
 
             <TextView
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:onClick="loginToRegisterSidebarClick"
+
                 android:text="New user? Register Now"
                 android:textAlignment="center"
                 android:textColor="@color/themeColor"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:weightSum="17">
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="3"
                     android:background="@color/colorAccent" />
+
                 <TextView
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_width="wrap_content"
@@ -148,21 +136,25 @@
                     android:text="Use other Methods"
                     android:textAlignment="center"
                     android:textSize="12sp" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="3"
                     android:background="@color/colorAccent" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_facebook" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -173,29 +165,10 @@
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btn_profile"
                 style="@style/loginButton"
+
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:text="Profile"
-                app:initialCornerAngle="27dp"
-                app:spinning_bar_color="#FFF"
-                app:spinning_bar_padding="6dp"
-                app:spinning_bar_width="4dp" />
+                android:text="Profile" />
         </LinearLayout>
     </ScrollView>
-    <View
-        android:layout_width="11dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_side_bg" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="30dp"
-        android:onClick="loginToRegisterSidebarClick"
-        android:src="@drawable/ic_add_img" />
-</RelativeLayout>
+</LinearLayout>

@@ -51,7 +51,7 @@ dependencies {
 
     //Material Design
     implementation 'com.google.android.material:material:1.0.0'
-
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
     implementation "androidx.cardview:cardview:1.0.0"
 }

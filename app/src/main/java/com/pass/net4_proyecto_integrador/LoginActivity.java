@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btn_login;
+    private Button btn_profile;
     private TextView txt_forgot_password;
 
     @Override
@@ -26,10 +27,11 @@ public class LoginActivity extends AppCompatActivity {
 
         // Here we load the items of the layout
         btn_login = findViewById(R.id.btn_login);
+        btn_profile = findViewById(R.id.btn_profile);
         txt_forgot_password = findViewById(R.id.txt_forget);
 
         loginButtonClick();
-
+        profileButtonClick();
         forgotPasswordClick();
 
     }
@@ -42,6 +44,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+    }
+    private void profileButtonClick(){
+        btn_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
