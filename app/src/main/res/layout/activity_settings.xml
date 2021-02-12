@@ -24,7 +24,7 @@
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
                 android:background="@color/statusBar"
-                android:text="Cuenta"
+                android:text="@string/account"
                 android:textColor="@color/black"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Cambiar Contraseña"
+                    android:text="@string/change_password"
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -60,7 +60,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Cambiar Email"
+                    android:text="@string/change_email"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:id="@+id/image_cambiar_email"
@@ -82,7 +82,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Idioma"
+                    android:text="@string/lenguage"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:id="@+id/image_idioma"
@@ -101,7 +101,7 @@
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
                 android:background="@color/statusBar"
-                android:text="Permisos"
+                android:text="@string/permission"
                 android:textColor="@color/black"/>
             <Switch
                 android:id="@+id/switch_notificaciones"
@@ -110,7 +110,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="20dp"
-                android:text="Permitir Notificaciones" />
+                android:text="@string/notification" />
             <Switch
                 android:id="@+id/switch_contactos"
                 android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="20dp"
-                android:text="Acceso a Contactos" />
+                android:text="@string/acces_contact" />
             <Switch
                 android:id="@+id/switch_ubicacion"
                 android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="20dp"
-                android:text="Permitir Ubicación" />
+                android:text="@string/localization" />
             <Switch
                 android:id="@+id/switch_mensajes"
                 android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="20dp"
-                android:text="Permitir Mensajes de Otros" />
+                android:text="@string/message" />
             <TextView
                 android:id="@+id/txt_otro"
                 android:layout_width="match_parent"
@@ -143,12 +143,13 @@
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
                 android:background="@color/statusBar"
-                android:text="Otros"
+                android:text="@string/others"
                 android:textColor="@color/black"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/politica_privacidad">
                 <TextView
                     android:id="@+id/txt_politica_privacidad"
                     android:layout_width="311dp"
@@ -156,7 +157,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Politica de Privacidad"
+                    android:text="@string/privacity"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:id="@+id/image_politica_privacidad"
@@ -170,7 +171,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/contacto">
                 <TextView
                     android:id="@+id/txt_contacto"
                     android:layout_width="311dp"
@@ -178,7 +180,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Contacto"
+                    android:text="@string/contact"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:id="@+id/image_contacto"
@@ -200,7 +202,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Sobre Nosotros"
+                    android:text="@string/about_us"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:id="@+id/image_sobre_nosotros"
@@ -223,7 +225,7 @@
                     android:layout_height="60dp"
                     android:paddingLeft="15dp"
                     android:textSize="20dp"
-                    android:text="Cerrar Sesion"
+                    android:text="@string/log_out"
                     android:textColor="@color/black"
                     android:textStyle="bold"/>
                 <ImageView
