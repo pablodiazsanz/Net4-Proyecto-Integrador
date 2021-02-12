@@ -3,14 +3,41 @@
     <string name="login_texto">Log In</string>
     <string name="register_texto">Sign Up</string>
     <string name="login_email_hint">Email</string>
+    <!--strings of the activity_email_recovery -->
     <string name="login_password_hint">Password</string>
     <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
     <string name="btn_send_email_recovery">Enviar</string>
+    <!--strings of the fragment -->
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_maps">Mapa</string>
     <string name="title_chat">Mensajes</string>
     <string name="title_profile">Perfil</string>
     <string name="title_activity">Actividad</string>
+    <!--strings of the activity_settings -->
+    <!--account -->
+    <string name="account">Cuenta</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="change_email">Cambiar Email</string>
+    <string name="lenguage">Idioma</string>
+    <!--permission -->
+    <string name="permission">Permisos</string>
+    <string name="notification">Permitir Notificaciones</string>
+    <string name="acces_contact">Acceso a Contactos</string>
+    <string name="localization">Permitir Ubicación</string>
+    <string name="message">Permitir Mensajes de Otros</string>
+    <!--others -->
+    <string name="others">Otros</string>
+    <string name="privacity">Politica de Privacidad</string>
+    <string name="contact">Contacto</string>
+    <string name="about_us">Sobre Nosotros</string>
+    <string name="log_out">Cerrar Sesion</string>
+    <!--strings of the activity_contact -->
+    <string name="title_numero">Puedes llamar al siguiente número</string>
+    <string name="numero">598321234</string>
+    <string name="title_email">Puedes enviarnos un E-mail</string>
+    <string name="email">net4@gmail.com</string>
+    <string name="title_redes_sociales">Encuentranos en las redes sociales</string>
+    <string name="redes_sociales_insta">NET_4</string>
 </resources>

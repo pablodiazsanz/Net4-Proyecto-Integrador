@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Button boton = findViewById(R.id.mi_button);
 
         // Here we load the items of the layout
         btn_login = findViewById(R.id.btn_login);
@@ -33,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         loginButtonClick();
         profileButtonClick();
         forgotPasswordClick();
+
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
