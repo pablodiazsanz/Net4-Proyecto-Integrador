@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_logoapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".EmailRecoveryActivity"></activity>
         <activity
             android:name=".PDFActivity"
             android:parentActivityName=".SettingsActivity" />

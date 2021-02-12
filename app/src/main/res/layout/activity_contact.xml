@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContactActivity">
+    tools:context=".EmailRecoveryActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -86,9 +86,9 @@
 
             <ImageView
                 android:id="@+id/img_insta"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_facebook" />
+                app:srcCompat="@drawable/instagram" />
 
             <TextView
                 android:id="@+id/redes_sociales_insta"
@@ -101,10 +101,10 @@
 
             <ImageView
                 android:id="@+id/img_twitter"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                app:srcCompat="@drawable/ic_google" />
+                app:srcCompat="@drawable/gorjeo" />
 
             <TextView
                 android:id="@+id/redes_sociales_twitter"
