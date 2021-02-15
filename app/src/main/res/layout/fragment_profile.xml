@@ -16,12 +16,6 @@
         app:title="Profile"
         app:titleTextColor="@color/colorPrimary"
         android:background="@color/themeColor">
-        <ImageView
-            android:id="@+id/settings_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_toolbar_settings"
-            android:paddingStart="280dp"/>
     </androidx.appcompat.widget.Toolbar>
 
 

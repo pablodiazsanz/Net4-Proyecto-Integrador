@@ -35,7 +35,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/logo_aniadir_imagen" />
+                    android:src="@drawable/foto_perfil" />
             </RelativeLayout>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
