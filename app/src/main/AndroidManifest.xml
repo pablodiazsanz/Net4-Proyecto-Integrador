@@ -18,7 +18,13 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!--camera not required for the operation of the app for PlayStore-->
+    <uses-feature android:name="android.hardware.camera" android:required="false"></uses-feature>
+
+    <!--Read Data and Camera Permissions-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA">+</uses-permission>
 
     <application
         android:allowBackup="true"

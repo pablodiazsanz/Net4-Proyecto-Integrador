@@ -9,28 +9,32 @@
         android:id="@+id/iv_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:src="@drawable/pyramid_logo_net4"
+        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
         app:layout_constraintEnd_toEndOf="@id/gl_end_icon"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/gl_start_icon"
         app:layout_constraintTop_toTopOf="@id/gl_top"
-        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
-        android:src="@mipmap/ic_logoapp_foreground" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/iv_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:src="@drawable/logo_letter_net4"
+        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
         app:layout_constraintEnd_toEndOf="@id/gl_end_name"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/gl_start_name"
         app:layout_constraintTop_toTopOf="@id/gl_top"
-        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
-        android:src="@mipmap/ic_namelogoapp_foreground" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_start_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_end_name"
@@ -44,21 +48,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.29" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_start_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.22" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="219dp" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_bottom"

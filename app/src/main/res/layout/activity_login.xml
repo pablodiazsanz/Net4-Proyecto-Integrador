@@ -44,10 +44,10 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="125dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/piramide" />
+                    android:src="@drawable/pyramid_logo_net4" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
