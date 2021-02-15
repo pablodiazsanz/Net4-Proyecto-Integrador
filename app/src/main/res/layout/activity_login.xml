@@ -188,12 +188,5 @@
         android:layout_marginBottom="30dp"
         android:onClick="loginToRegisterSidebarClick"
         android:src="@drawable/ic_add_img" />
-    <Button
-        android:id="@+id/mi_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="67dp"
-        android:text="Settings" />
 
 </RelativeLayout>

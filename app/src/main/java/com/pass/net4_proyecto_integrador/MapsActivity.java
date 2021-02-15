@@ -40,7 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        bnv = findViewById(R.id.bottomNavigationBar);
+       /* bnv = findViewById(R.id.bottomNavigationBar);
         bnv.setBackground(null);
         bnv.getMenu().getItem(2).setEnabled(false);
 
@@ -54,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         } else {
             obtenerLocalizacion();
-        }
+        }*/
     }
 
     @Override
