@@ -25,16 +25,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".EmailRecoveryActivity"></activity>
         <activity
             android:name=".PDFActivity"
             android:parentActivityName=".SettingsActivity" />
+
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" />
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -62,7 +62,7 @@
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".MapsActivity" />
+
 
     </application>
 

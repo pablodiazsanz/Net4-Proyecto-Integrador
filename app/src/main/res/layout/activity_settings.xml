@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:fitsSystemWindows="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/statusBar"
+                android:background="@color/colorPrimary"
                 android:text="@string/account"
                 android:textColor="@color/black"/>
             <LinearLayout
@@ -100,7 +101,7 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/statusBar"
+                android:background="@color/colorPrimary"
                 android:text="@string/permission"
                 android:textColor="@color/black"/>
             <Switch
@@ -142,7 +143,7 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/statusBar"
+                android:background="@color/colorPrimary"
                 android:text="@string/others"
                 android:textColor="@color/black"/>
             <LinearLayout

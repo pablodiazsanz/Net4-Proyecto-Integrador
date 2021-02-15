@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador;
+package com.pass.net4_proyecto_integrador.fragmentsMainActivity.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
