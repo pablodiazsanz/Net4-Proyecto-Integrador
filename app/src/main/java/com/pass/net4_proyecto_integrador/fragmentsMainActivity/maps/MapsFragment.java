@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador.fragmentsMainActivity;
+package com.pass.net4_proyecto_integrador.fragmentsMainActivity.maps;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -173,7 +173,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         //Aqui dirigimos la camara a la ubicacion
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
         //El zoom que va de 0 a 21
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 10));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 15));
         //Esto es el marcador con el titulo de ubicacion
         mGoogleMap.addMarker(new MarkerOptions().position(ubi).title("Mi Ubicacion"));
     }

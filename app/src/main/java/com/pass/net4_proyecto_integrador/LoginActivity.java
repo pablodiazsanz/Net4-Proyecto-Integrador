@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         txt_forgot_password = findViewById(R.id.txt_forget);
 
         loginButtonClick();
-        profileButtonClick();
         forgotPasswordClick();
 
         boton.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void profileButtonClick(){
-        btn_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-    }
+
 
     /**
      * In this method we have implemented the setOnClickListener of the

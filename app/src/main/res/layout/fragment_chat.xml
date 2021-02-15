@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentsMainActivity.notifications.NotificationsFragment">
+    tools:context=".fragmentsMainActivity.notifications.NotificationsFragment"
+    android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Chat"
+        app:titleTextColor="@color/colorPrimary"
+        android:background="@color/themeColor">
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/text_notifications"

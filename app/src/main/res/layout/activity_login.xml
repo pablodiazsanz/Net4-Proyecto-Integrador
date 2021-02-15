@@ -170,16 +170,6 @@
                     android:src="@drawable/ic_google" />
             </LinearLayout>
 
-            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                android:id="@+id/btn_profile"
-                style="@style/loginButton"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/loginViewsMargin"
-                android:text="Profile"
-                app:initialCornerAngle="27dp"
-                app:spinning_bar_color="#FFF"
-                app:spinning_bar_padding="6dp"
-                app:spinning_bar_width="4dp" />
         </LinearLayout>
     </ScrollView>
     <View
@@ -204,6 +194,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="67dp"
-        android:text="Button" />
+        android:text="Settings" />
 
 </RelativeLayout>
