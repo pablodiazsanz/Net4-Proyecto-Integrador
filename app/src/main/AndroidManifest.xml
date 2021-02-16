@@ -24,10 +24,15 @@
         android:roundIcon="@mipmap/ic_logoapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".EmailRecoveryActivity"></activity>
+        <activity android:name=".ChangeEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EmailRecoveryActivity" />
         <activity
             android:name=".PDFActivity"
             android:parentActivityName=".SettingsActivity" />
@@ -50,7 +55,8 @@
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,9 +67,7 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".MapsActivity" />
-
     </application>
 
 </manifest>

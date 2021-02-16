@@ -12,6 +12,8 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout cerrarSesion;
     private LinearLayout politicaDePrivacidad;
     private LinearLayout contacto;
+    private LinearLayout changePssword;
+    private LinearLayout changePersonalInf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,26 @@ public class SettingsActivity extends AppCompatActivity {
         cerrarSesion = findViewById(R.id.cerrar_sesion);
         politicaDePrivacidad = findViewById(R.id.politica_privacidad);
         contacto = findViewById(R.id.contacto);
+        changePssword = findViewById(R.id.cambiar_contraseña);
+        changePersonalInf = findViewById(R.id.changePersonalInfo);
 
+        changePssword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        changePersonalInf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, ChangeEmailActivity.class);
+                startActivity(intent);
+            }
+
+        });
 
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
