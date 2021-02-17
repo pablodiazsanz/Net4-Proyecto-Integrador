@@ -24,10 +24,11 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/colorFondoGris"
+                android:background="@color/whiteTextColor"
                 android:text="@string/account"
                 android:textColor="@color/black"/>
             <LinearLayout
+                android:id="@+id/cambiar_contraseña"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -53,7 +54,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/changePersonalInfo">
                 <TextView
                     android:id="@+id/txt_cambiar_email"
                     android:layout_width="311dp"
@@ -101,7 +103,7 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/colorFondoGris"
+                android:background="@color/whiteTextColor"
                 android:text="@string/permission"
                 android:textColor="@color/black"/>
             <Switch
@@ -143,7 +145,7 @@
                 android:layout_height="60dp"
                 android:paddingLeft="15dp"
                 android:textSize="20dp"
-                android:background="@color/colorFondoGris"
+                android:background="@color/whiteTextColor"
                 android:text="@string/others"
                 android:textColor="@color/black"/>
             <LinearLayout
