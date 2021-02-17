@@ -8,13 +8,14 @@
     <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
     <string name="btn_send_email_recovery">Enviar</string>
-    <!--strings of the fragment -->
+    <!--strings of the main activity -->
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_maps">Mapa</string>
     <string name="title_chat">Mensajes</string>
     <string name="title_profile">Perfil</string>
-    <string name="title_activity">Actividad</string>
+    <string name="title_activity">Alertas</string>
+    <string name="title_help_alert">Pedir Ayuda</string>
     <!--strings of the activity_settings -->
     <!--account -->
     <string name="account">Cuenta</string>

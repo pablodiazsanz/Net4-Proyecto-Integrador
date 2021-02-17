@@ -41,9 +41,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="modifiedEditText" parent="parent">
+    <style name="modifiedEditText">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
         <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="loginButton" parent="viewParent">
