@@ -66,6 +66,7 @@
             style="@style/loginButton"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/loginViewsMargin"
+            android:layout_marginBottom="30dp"
             android:text="@string/btn_send_email_recovery"
             app:initialCornerAngle="27dp"
             app:spinning_bar_color="#FFF"

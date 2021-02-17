@@ -8,15 +8,15 @@
         android:title="@string/title_maps" />
     <item
         android:id="@+id/navigation_activity"
-        android:icon="@drawable/ic_activity"
+        android:icon="@drawable/ic_notifications"
         android:title="@string/title_activity" />
     <item
         android:id="@+id/navigation_help_alert"
         android:icon="@drawable/ic_add"
-        android:title="Pedir Ayuda" />
+        android:title="@string/title_help_alert" />
     <item
         android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/ic_activity"
         android:title="@string/title_chat" />
     <item
         android:id="@+id/navigation_profile"

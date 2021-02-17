@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_help_alert"
         android:name="com.pass.net4_proyecto_integrador.fragmentsMainActivity.helpAlert.HelpAlertFragment"
-        android:label="Pedir Ayuda"
+        android:label="@string/title_help_alert"
         tools:layout="@layout/fragment_help_alert" />
 
     <fragment
