@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="Alerta"
-        app:titleTextColor="@color/colorPrimary"
-        android:background="@color/themeColor">
+        app:titleTextColor="@color/colorAccent"
+        android:background="@color/colorPrimary">
 
     </androidx.appcompat.widget.Toolbar>
 

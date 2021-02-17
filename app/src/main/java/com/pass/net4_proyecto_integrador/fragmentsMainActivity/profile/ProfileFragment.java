@@ -73,7 +73,6 @@ public class ProfileFragment extends Fragment {
         ProfileAdapterActivity adapter = new ProfileAdapterActivity(getChildFragmentManager());
         //Adding Fragments
         adapter.AddFragment(new PorfileAboutFragmentActivity(),"About");
-        adapter.AddFragment(new ProfileMultimediaFragmenttActivity(),"Multimedia");
         adapter.AddFragment(new ProfileValorationsFragmentActivity(),"Valorations");
         //Adapter Setup
         viewPager.setAdapter(adapter);

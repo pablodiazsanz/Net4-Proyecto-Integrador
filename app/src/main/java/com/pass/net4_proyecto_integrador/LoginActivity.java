@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Here we load the items of the layout
         btn_login = findViewById(R.id.btn_login);
-        btn_profile = findViewById(R.id.btn_profile);
         txt_forgot_password = findViewById(R.id.txt_forget);
 
         loginButtonClick();
