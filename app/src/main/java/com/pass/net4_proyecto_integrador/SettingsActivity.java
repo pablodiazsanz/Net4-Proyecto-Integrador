@@ -8,10 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class SettingsActivity extends AppCompatActivity {
     private LinearLayout cerrarSesion;
     private LinearLayout politicaDePrivacidad;
     private LinearLayout contacto;
+    //Google
+    private GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +26,19 @@ public class SettingsActivity extends AppCompatActivity {
         politicaDePrivacidad = findViewById(R.id.politica_privacidad);
         contacto = findViewById(R.id.contacto);
 
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mGoogleSignInClient.signOut();
                 Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

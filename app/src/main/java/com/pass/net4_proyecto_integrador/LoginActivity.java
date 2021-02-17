@@ -2,6 +2,7 @@ package com.pass.net4_proyecto_integrador;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.Login;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -22,9 +31,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 /**
  * This class provides functionality to the activity_login layout.
@@ -42,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     private String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 54654;
+    //Facebook
+    private CallbackManager callbackManager;
+    private LoginButton facebook_login;
+    private AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         btn_profile = findViewById(R.id.btn_profile);
         txt_forgot_password = findViewById(R.id.txt_forget);
         google_login = findViewById(R.id.google_login);
+        facebook_login = findViewById(R.id.facebook_login);
+        facebook_login.setReadPermissions("email","public_profile");
+        //button.setBackgroundResource(R.drawable.facebook);
+        //Google & Facebook
         mAuth = FirebaseAuth.getInstance();
+        callbackManager =  CallbackManager.Factory.create();
 
         loginButtonClick();
         forgotPasswordClick();
@@ -68,7 +90,75 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
         googleLoginClick();
+
+        // Configure Facebook Sign In
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        facebookLoginClick();
+        salirFacebook();
     }
+
+    private void salirFacebook() {
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                mAuth.signOut();
+            }
+        };
+    }
+
+    /**
+     * In this method we have put the setOnClickListener of the Facebook login ImageView.
+     */
+    private void facebookLoginClick() {
+        facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookResult(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG,"onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG,"onError");
+            }
+        });
+    }
+
+    private void handleFacebookResult(AccessToken accessToken) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this,"Log In Successfully facebook",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this,"Log In Failed Facebook",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+   /* @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (authStateListener != null){
+            mAuth.removeAuthStateListener(authStateListener);
+        }
+    }*/
 
     /**
      * In this method we have put the setOnClickListener of the Google login ImageView.
@@ -92,14 +182,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            handleGoogleResult(task);
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> task) {
+    private void handleGoogleResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             Toast.makeText(LoginActivity.this,"Log In Successfully",Toast.LENGTH_LONG).show();

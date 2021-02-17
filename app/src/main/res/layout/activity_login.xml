@@ -159,11 +159,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center">
-                <ImageView
+                <com.facebook.login.widget.LoginButton
                     android:id="@+id/facebook_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_facebook" />
+                    android:layout_gravity="center_horizontal" />
                 <ImageView
                     android:id="@+id/google_login"
                     android:layout_width="wrap_content"
@@ -190,5 +190,14 @@
         android:layout_marginBottom="30dp"
         android:onClick="loginToRegisterSidebarClick"
         android:src="@drawable/ic_add_img" />
+
+    <!--
+
+    <ImageView
+    android:id="@+id/facebook_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_facebook" />
+    -->
 
 </RelativeLayout>
