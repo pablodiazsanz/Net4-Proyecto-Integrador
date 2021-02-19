@@ -15,11 +15,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.Login;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,11 +31,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 /**
  * This class provides functionality to the activity_login layout.
@@ -53,12 +49,11 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView google_login;
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "LoginActivity";
-    private FirebaseAuth mAuth;
+    private static FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 54654;
     //Facebook
     private CallbackManager callbackManager;
     private LoginButton facebook_login;
-    private AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         google_login = findViewById(R.id.google_login);
         facebook_login = findViewById(R.id.facebook_login);
         facebook_login.setReadPermissions("email","public_profile");
-        //button.setBackgroundResource(R.drawable.facebook);
+        //facebook_login.setBackgroundResource(R.drawable.ic_facebook);
+
         //Google & Facebook
         mAuth = FirebaseAuth.getInstance();
         callbackManager =  CallbackManager.Factory.create();
@@ -94,17 +90,13 @@ public class LoginActivity extends AppCompatActivity {
         // Configure Facebook Sign In
         FacebookSdk.sdkInitialize(getApplicationContext());
         facebookLoginClick();
-        salirFacebook();
     }
 
-    private void salirFacebook() {
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                mAuth.signOut();
-            }
-        };
+    public static FirebaseAuth recogerInstancia() {
+        FirebaseAuth mAuth_creado = mAuth;
+        return mAuth_creado;
     }
+
 
     /**
      * In this method we have put the setOnClickListener of the Facebook login ImageView.
@@ -145,20 +137,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (authStateListener != null){
-            mAuth.removeAuthStateListener(authStateListener);
-        }
-    }*/
 
     /**
      * In this method we have put the setOnClickListener of the Google login ImageView.

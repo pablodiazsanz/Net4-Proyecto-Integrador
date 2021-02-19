@@ -8,9 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsActivity extends AppCompatActivity {
     private LinearLayout cerrarSesion;
@@ -18,6 +22,10 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout contacto;
     //Google
     private GoogleSignInClient mGoogleSignInClient;
+    //Facebook
+    private AccessTokenTracker accessTokenTracker;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
         politicaDePrivacidad = findViewById(R.id.politica_privacidad);
         contacto = findViewById(R.id.contacto);
 
+        mAuth = LoginActivity.recogerInstancia();
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -33,12 +43,14 @@ public class SettingsActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mGoogleSignInClient.signOut();
+                mAuth.signOut();
+                LoginManager.getInstance().logOut();
                 Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -61,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * In this method, the password recovery screen has been implemented
      * as an alert dialog.
