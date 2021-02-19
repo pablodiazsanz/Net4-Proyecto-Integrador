@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         googleLoginClick();
 
         // Configure Facebook Sign In
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         facebookLoginClick();
     }
 
