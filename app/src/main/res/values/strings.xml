@@ -49,11 +49,22 @@
     <string name="repeat_password">Repeat Password</string>
     <string name="cancel">Cancel</string>
 
+    <!--field strings  of the activity_change_password-->
+    <string name="field_old_password">Old Password:</string>
+    <string name="field_new_password">New Password:</string>
+    <string name="field_repeat_password">Repeat Password:</string>
+
     <!--strings of the activity_change_email-->
-    <string name="title_change_email">Change Email</string>
+    <string name="title_change_personal_info">Change Personal Information</string>
     <string name="email_address">E-mail Address</string>
     <string name="phone_number">Phone Number</string>
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
+
+    <!--field strings of the activity_change_email-->
+    <string name="field_email_address">E-mail Address:</string>
+    <string name="field_phone_number">Phone Number:</string>
+    <string name="field_gender">Gender:</string>
+    <string name="field_birthday">Birthday:</string>
 
 </resources>
