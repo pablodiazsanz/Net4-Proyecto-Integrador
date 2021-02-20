@@ -43,6 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         galleryImage = (ImageView) findViewById(R.id.image_add);
 
+        Glide.with(this)
+                .load("android.resource://" + getPackageName() + "/"+ R.drawable.monster_interrogation_add_icon)
+                .transition(DrawableTransitionOptions.withCrossFade(500))
+                .into(galleryImage);
+
         galleryImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
