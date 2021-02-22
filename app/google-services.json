@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "52484245948",
+    "project_id": "net4-515ff",
+    "storage_bucket": "net4-515ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52484245948:android:81cc13b723607621c803b9",
+        "android_client_info": {
+          "package_name": "com.pass.net4_proyecto_integrador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52484245948-sff8mjd55ocnnohcitg6nbglo4srihlo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pass.net4_proyecto_integrador",
+            "certificate_hash": "a1933381086aeacebe8170cf48a44771ffb350b9"
+          }
+        },
+        {
+          "client_id": "52484245948-nkhnhgi30eqncgr0l6e3is8r93fif0pr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOzmNsNdlbtdMO00oPqb129y28BaQoYSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52484245948-nkhnhgi30eqncgr0l6e3is8r93fif0pr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -56,4 +56,9 @@
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
 
+    <!--strings of the Google permision -->
+    <string name="facebook_app_id">2909638252637162</string>
+    <string name="fb_login_protocol_scheme">fb2909638252637162</string>
+
+
 </resources>
