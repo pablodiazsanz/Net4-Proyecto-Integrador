@@ -23,7 +23,6 @@ public class SettingsActivity extends AppCompatActivity {
     //Google
     private GoogleSignInClient mGoogleSignInClient;
     //Facebook
-    private AccessTokenTracker accessTokenTracker;
     private FirebaseAuth mAuth;
 
     @Override
@@ -44,6 +43,8 @@ public class SettingsActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        //****************** BUTTONS ACTIONS ****************
 
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override

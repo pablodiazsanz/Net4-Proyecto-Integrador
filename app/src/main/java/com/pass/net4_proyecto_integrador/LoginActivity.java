@@ -15,9 +15,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,6 +33,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.facebook.FacebookSdk;
@@ -54,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
     //Facebook
     private CallbackManager callbackManager;
     private LoginButton facebook_login;
+    private AccessTokenTracker accessTokenTracker;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         txt_forgot_password = findViewById(R.id.txt_forget);
         google_login = findViewById(R.id.google_login);
         facebook_login = findViewById(R.id.facebook_login);
-        facebook_login.setReadPermissions("email","public_profile");
         //facebook_login.setBackgroundResource(R.drawable.ic_facebook);
 
         //Google & Facebook
@@ -86,20 +90,75 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
         googleLoginClick();
-
-        // Configure Facebook Sign In
-        //FacebookSdk.sdkInitialize(getApplicationContext());
-        facebookLoginClick();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Configure Facebook Sign In
+        facebook_login.setReadPermissions("email","public_profile");
+        facebookLoginClick();
+        authListener();
+        // Configure Facebook Listener
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (authStateListener != null){
+            // Configure Facebook remove Listener
+            mAuth.removeAuthStateListener(authStateListener);
+            mAuth.signOut();
+        }
+    }
+
+    /**
+     *
+     * @return FirebaseAuth Icreated
+     */
     public static FirebaseAuth recogerInstancia() {
         FirebaseAuth mAuth_creado = mAuth;
         return mAuth_creado;
     }
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //Here is the call back for Faccebook
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+        //Here is the signed account of google
+        if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleGoogleResult(task);
+        }
+    }
+
+    //****************** FACEBOOK ****************
 
     /**
-     * In this method we have put the setOnClickListener of the Facebook login ImageView.
+     * This method is to create a Auth Listener
+     */
+    private void authListener() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    Log.d(TAG,"Usuario encontardo");
+                }
+            }
+        };
+    }
+
+    /**
+     * In this method we have put the setOnClickListener of the Facebook login LoginButton.
+     * Here we check if the client register, cancel the operation or it was an error
      */
     private void facebookLoginClick() {
         facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -120,6 +179,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * In this method check if the register was successful, if it was, it do the Intent and change to the mainactivity
+     * @param accessToken
+     */
     private void handleFacebookResult(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -137,6 +200,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    //****************** GOOGLE ****************
 
     /**
      * In this method we have put the setOnClickListener of the Google login ImageView.
@@ -158,16 +223,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(intent,RC_SIGN_IN);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleGoogleResult(task);
-        }
-    }
-
+    /**
+     * Here we take the client account and result from the api
+     * @param task
+     */
     private void handleGoogleResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -180,6 +239,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * in this method if the account is success it change to the mainActivity
+     * @param account
+     */
     private void firebaseGoogleAuth(GoogleSignInAccount account) {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
         mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -199,6 +262,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    //****************** BUTTONS ACTIONS ****************
 
     /**
      * In this method we have put the setOnClickListener of the login button.
@@ -253,5 +318,4 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }
