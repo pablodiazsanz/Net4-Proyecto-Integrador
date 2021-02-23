@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador.fragmentsMainActivity.profile;
+package com.pass.net4_proyecto_integrador.mainActivities.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myFragment = inflater.inflate(R.layout.fragment_profile,container,false);
+        myFragment = inflater.inflate(R.layout.activity_profile,container,false);
         viewPager = myFragment.findViewById(R.id.viewpager_id);
         tabLayout = myFragment.findViewById(R.id.tabLayout_id);
         myToolbar = (Toolbar) myFragment.findViewById(R.id.toolbar_profile);
@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
     private void setUpViewPager(ViewPager viewPager){
         ProfileAdapterActivity adapter = new ProfileAdapterActivity(getChildFragmentManager());
         //Adding Fragments
-        adapter.AddFragment(new PorfileAboutFragmentActivity(),"About");
+        adapter.AddFragment(new ProfileAboutFragmentActivity(),"About");
         adapter.AddFragment(new ProfileValorationsFragmentActivity(),"Valorations");
         //Adapter Setup
         viewPager.setAdapter(adapter);
