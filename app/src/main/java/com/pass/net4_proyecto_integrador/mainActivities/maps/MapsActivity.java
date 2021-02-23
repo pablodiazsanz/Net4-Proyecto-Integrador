@@ -26,7 +26,7 @@ import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.notifications.NotificationsFragment;
-import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileFragment;
+import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //Barra de abajo
@@ -84,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navigation_profile:
-                        startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
