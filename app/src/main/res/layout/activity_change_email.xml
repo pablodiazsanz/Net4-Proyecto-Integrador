@@ -6,137 +6,206 @@
     android:layout_height="match_parent"
     tools:context=".ChangeEmailActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineGridLayoutTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.22"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineGridLayoutStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineGridLayoutEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineGridLayoutBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.89"></androidx.constraintlayout.widget.Guideline>
+
+    <ImageView
+        android:id="@+id/backgroundChangePersonalInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginTop="10dp"
-
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+    <GridLayout
+        android:id="@+id/gridLayoutChangePersonalInfo"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        app:layout_constraintWidth_percent="0.80"
+        app:layout_constraintHeight_percent="0.70"
+        android:layout_below="@+id/cardviewChangePwdTitle"
+        android:columnCount="1"
+        android:rowCount="3"
+        app:layout_constraintBottom_toBottomOf="@id/guideLineGridLayoutBottom"
+        app:layout_constraintEnd_toEndOf="@id/guideLineGridLayoutEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineGridLayoutStart"
+        app:layout_constraintTop_toTopOf="@+id/guideLineGridLayoutTop"
+        >
 
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="-15dp"
-            android:layout_marginEnd="-15dp"
-            android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_with_shadow"
-            android:orientation="horizontal">
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            android:rowCount="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-
-            <TextView
-                android:id="@+id/txt_tittleChangeEmail"
-                android:layout_marginLeft="60dp"
-                android:layout_width="210.3dp"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="15dp"
-                android:paddingTop="18dp"
-                android:text="@string/title_change_email"
-                android:textColor="@color/black"
-                android:textSize="25dp"></TextView>
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_marginLeft="0dp"
-                android:id="@+id/txt_cancelChangeEmail"
-                android:layout_width="106dp"
-                android:layout_height="60dp"
-                android:text="@string/cancel"
-                android:textColor="@color/colorTextosGris"
-                android:textSize="20dp"></TextView>
-        </LinearLayout>
+                <TextView
+                    android:layout_marginRight="78dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_email_address"
+                    android:textColor="@color/black"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtxt_Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    app:boxBackgroundColor="@color/whiteTextColor">
+                    app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt_Email"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/whiteTextColor"
-            app:errorEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=""
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="2dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email_address"
-                android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt_phoneNumber"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/whiteTextColor"
-            app:errorEnabled="true">
+                <TextView
+                    android:layout_marginRight="78dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_phone_number"
+                    android:textColor="@color/black"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtxt_phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    app:boxBackgroundColor="@color/whiteTextColor"
+                    app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/phone_number"
-                android:inputType="phone" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=""
+                        android:inputType="phone"
+                        android:paddingStart="2dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt_pgender"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/whiteTextColor"
-            app:errorEnabled="true">
+                <TextView
+                    android:layout_marginRight="99dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_birthday"
+                    android:textColor="@color/black"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtxt_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="3dp"
+                    app:boxBackgroundColor="@color/whiteTextColor"
+                    app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/gender"
-                android:inputType="text" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=""
+                        android:inputType="text"
+                        android:paddingStart="2dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt_birthday"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/whiteTextColor"
-            app:errorEnabled="true">
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btn_acceptChangePersonalInf"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/birthday"
-                android:inputType="text" />
+                    style="@style/loginButton"
+                    android:layout_marginTop="23dp"
+                    android:text="SAVE"
+                    app:initialCornerAngle="27dp"
+                    app:spinning_bar_width="4dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-            android:id="@+id/btn_acceptChangePersonalInf"
+    </GridLayout>
 
-            style="@style/loginButton"
-            android:layout_marginTop="80dp"
-            android:layout_gravity="center_horizontal"
-            android:text="SAVE"
-            app:initialCornerAngle="27dp"
-            app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="6dp"
-            app:spinning_bar_width="4dp" />
-    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewChangePwdTitle"
+        android:layout_width="413dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorTextosGris"
+        android:rowCount="1"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_tittleChangePersonalInfo"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="18dp"
+            android:text="@string/title_change_personal_info"
+            android:textColor="@color/black"
+            android:textSize="25dp"></TextView>
+
+        <TextView
+            android:id="@+id/txt_cancelChangeEmail"
+            android:layout_width="106dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="305dp"
+            android:layout_marginTop="43dp"
+            android:text="@string/cancel"
+            android:textColor="@color/colorTextosGris"
+            android:textSize="20dp"></TextView>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
