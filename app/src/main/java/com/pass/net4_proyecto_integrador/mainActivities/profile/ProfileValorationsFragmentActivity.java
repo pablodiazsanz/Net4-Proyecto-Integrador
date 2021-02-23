@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador.fragmentsMainActivity.profile;
+package com.pass.net4_proyecto_integrador.mainActivities.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

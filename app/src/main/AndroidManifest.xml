@@ -14,14 +14,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!--camera not required for the operation of the app for PlayStore-->
-    <uses-feature android:name="android.hardware.camera" android:required="false"></uses-feature>
-
-    <!--Read Data and Camera Permissions-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- camera not required for the operation of the app for PlayStore -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" /> <!-- Read Data and Camera Permissions -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA">+</uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -30,9 +28,24 @@
         android:roundIcon="@mipmap/ic_logoapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ChangeEmailActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".mainActivities.maps.MapsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mainActivities.dashboard.DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mainActivities.helpAlert.HelpAlertActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mainActivities.notifications.NotificationsFragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mainActivities.profile.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChangeEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChangePasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,13 +53,12 @@
         <activity
             android:name=".PDFActivity"
             android:parentActivityName=".SettingsActivity" />
-
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".mainActivities.profile.ProfileActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -75,8 +87,9 @@
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>

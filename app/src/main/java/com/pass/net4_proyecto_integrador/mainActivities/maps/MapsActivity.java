@@ -1,12 +1,14 @@
-package com.pass.net4_proyecto_integrador;
+package com.pass.net4_proyecto_integrador.mainActivities.maps;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,13 +22,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.pass.net4_proyecto_integrador.R;
+import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
+import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
+import com.pass.net4_proyecto_integrador.mainActivities.notifications.NotificationsFragment;
+import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileFragment;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //Barra de abajo
     private BottomNavigationView bnv;
     //Para el Mapa
     private GoogleMap mMap;
-    private OnMapReadyCallback omrc = this;
+    private final OnMapReadyCallback omrc = this;
     private Location currentlocation;
     private LocationManager lm;
     private static final int REQUEST_CODE = 101;
@@ -40,9 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-       /* bnv = findViewById(R.id.bottomNavigationBar);
-        bnv.setBackground(null);
-        bnv.getMenu().getItem(2).setEnabled(false);
+
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -54,7 +59,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         } else {
             obtenerLocalizacion();
-        }*/
+        }
+
+        bnv = findViewById(R.id.nav_view_maps);
+
+        bnv.setSelectedItemId(R.id.navigation_maps);
+
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_maps:
+                        return true;
+                    case R.id.navigation_activity:
+                        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_help_alert:
+                        startActivity(new Intent(getApplicationContext(), HelpAlertActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_chat:
+                        startActivity(new Intent(getApplicationContext(), NotificationsFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_profile:
+                        startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

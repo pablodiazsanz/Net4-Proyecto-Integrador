@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador.fragmentsMainActivity.profile;
+package com.pass.net4_proyecto_integrador.mainActivities.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 
 import com.pass.net4_proyecto_integrador.R;
 
-public class PorfileAboutFragmentActivity extends Fragment {
+public class ProfileAboutFragmentActivity extends Fragment {
     View view;
-    public PorfileAboutFragmentActivity() {
+    public ProfileAboutFragmentActivity() {
     }
 
     @Nullable
