@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="Actividad"
+            app:title="Alertas"
             app:titleTextColor="@color/colorAccent">
 
         </androidx.appcompat.widget.Toolbar>

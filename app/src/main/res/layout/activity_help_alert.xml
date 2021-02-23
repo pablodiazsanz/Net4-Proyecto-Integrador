@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="Alerta"
+            app:title="Pedir Ayuda"
             app:titleTextColor="@color/colorAccent">
 
         </androidx.appcompat.widget.Toolbar>
