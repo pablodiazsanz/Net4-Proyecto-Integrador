@@ -44,14 +44,14 @@
             android:name=".mainActivities.profile.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ChangeEmailActivity"
+            android:name=".settingsActivities.ChangeEmailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".settingsActivities.ChangePasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EmailRecoveryActivity" />
+        <activity android:name=".settingsActivities.EmailRecoveryActivity" />
         <activity
-            android:name=".PDFActivity"
+            android:name=".settingsActivities.PDFActivity"
             android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".SettingsActivity"

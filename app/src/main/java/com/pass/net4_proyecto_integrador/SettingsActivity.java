@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pass.net4_proyecto_integrador.settingsActivities.ChangeEmailActivity;
+import com.pass.net4_proyecto_integrador.settingsActivities.ChangePasswordActivity;
+import com.pass.net4_proyecto_integrador.settingsActivities.PDFActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     private LinearLayout cerrarSesion;

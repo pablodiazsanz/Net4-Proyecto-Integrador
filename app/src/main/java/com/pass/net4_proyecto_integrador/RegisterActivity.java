@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,6 +22,9 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 
@@ -37,11 +42,41 @@ public class RegisterActivity extends AppCompatActivity {
     Bitmap bitmap;
     Context context = this;
 
+    TextInputLayout name, email, phoneNumber, passwd;
+    Button btnRegister;
+
+    FirebaseDatabase myDatabase;
+    DatabaseReference myDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         galleryImage = (ImageView) findViewById(R.id.image_add);
+
+        name = findViewById(R.id.textInputName);
+        email = findViewById(R.id.textInputEmail);
+        phoneNumber = findViewById(R.id.textInputMobile);
+        passwd = findViewById(R.id.textInputPassword);
+        btnRegister = findViewById(R.id.cirRegisterButton);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDatabase = FirebaseDatabase.getInstance();
+                myDatabaseReference = myDatabase.getReference("Users");
+
+                String newName = name.getEditText().getText().toString();
+                String newEmail = email.getEditText().getText().toString();
+                String newPhoneNumber = phoneNumber.getEditText().getText().toString();
+                String newPasswd = passwd.getEditText().getText().toString();
+
+                User newUser = new User(newName, newEmail, newPhoneNumber, newPasswd);
+
+                myDatabaseReference.push().setValue(newUser);
+            }
+        });
+
 
         Glide.with(this)
                 .load("android.resource://" + getPackageName() + "/"+ R.drawable.monster_interrogation_add_icon)

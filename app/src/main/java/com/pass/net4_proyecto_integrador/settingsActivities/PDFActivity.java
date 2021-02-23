@@ -1,9 +1,11 @@
-package com.pass.net4_proyecto_integrador;
+package com.pass.net4_proyecto_integrador.settingsActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import com.pass.net4_proyecto_integrador.R;
 
 import java.io.BufferedReader;
 import java.io.File;

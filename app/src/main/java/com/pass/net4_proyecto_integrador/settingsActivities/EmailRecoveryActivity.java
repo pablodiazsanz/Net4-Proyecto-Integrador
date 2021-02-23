@@ -1,8 +1,10 @@
-package com.pass.net4_proyecto_integrador;
+package com.pass.net4_proyecto_integrador.settingsActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.pass.net4_proyecto_integrador.R;
 
 public class EmailRecoveryActivity extends AppCompatActivity {
 
