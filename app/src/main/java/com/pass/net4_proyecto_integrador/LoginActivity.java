@@ -359,7 +359,6 @@ public class LoginActivity extends AppCompatActivity {
                         profileIntent.putExtra("phoneNumber", phoneNumberFromDB);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(profileIntent);
 
-
                         Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

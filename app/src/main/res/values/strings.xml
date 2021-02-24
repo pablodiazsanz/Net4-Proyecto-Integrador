@@ -5,6 +5,7 @@
     <string name="login_email_hint">Email</string>
     <!--strings of the activity_email_recovery -->
     <string name="login_password_hint">Password</string>
+    <string name="login_confirm_password_hint">Confirm Password</string>
     <string name="txt_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="txt_forgot_password_content">Por favor introduzca su email en la parte inferior. Se le enviará un correo para recuperar su cuenta.</string>
     <string name="btn_send_email_recovery">Enviar</string>
@@ -71,6 +72,13 @@
     <string name="field_phone_number">Phone Number:</string>
     <string name="field_gender">Gender:</string>
     <string name="field_birthday">Birthday:</string>
+    <string name="username_hint">Username</string>
+    <string name="continue_registration">Next Step</string>
+    <string name="continue_registration_title">User Info</string>
+    <string name="name">Name</string>
+    <string name="description_hint">Description</string>
+    <string name="add_photo">Add Photo:</string>
+    <string name="back">Go Back</string>
 
 
 </resources>

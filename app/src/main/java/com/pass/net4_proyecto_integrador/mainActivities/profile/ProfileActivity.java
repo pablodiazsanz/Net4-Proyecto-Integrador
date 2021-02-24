@@ -91,15 +91,18 @@ public class ProfileActivity  extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 messageReceiver, new IntentFilter("SEND_PERSONAL_DATA"));
 
-        name.setText(nom);
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             nom = intent.getStringExtra("name");
-
+            putName(nom);
         }
     };
+
+    private void putName(String nombre) {
+        name.setText(nombre);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

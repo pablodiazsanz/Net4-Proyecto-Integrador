@@ -8,7 +8,7 @@
     android:background="@color/register_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".RegisterActivity"
+    tools:context=".ContinueRegistrationActivity"
     android:fitsSystemWindows="true">
 
     <ImageView
@@ -26,25 +26,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     style="@style/parent"
                     android:layout_marginTop="30dp"
-                    android:onClick="registerToLoginSidebarClick"
-                    android:text="@string/register_texto"
+                    android:text="@string/continue_registration_title"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30sp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold" />
+
 
             </RelativeLayout>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="150dp"
                 app:cardBackgroundColor="@color/whiteTextColor"
                 app:cardCornerRadius="10dp">
                 <LinearLayout
@@ -52,8 +54,23 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_photo"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        />
+                    <ImageView
+                        android:id="@+id/image_add"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        />
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputUsername"
+                        android:id="@+id/textInputName"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
                         android:layout_marginLeft="20dp"
@@ -64,15 +81,15 @@
                         app:hintTextColor="@color/colorAccent"
                         >
                         <EditText
-                            android:id="@+id/editTextUsername"
+                            android:id="@+id/editTextName"
                             style="@style/modifiedEditText"
-                            android:hint="@string/username_hint"
-                            android:inputType="text"
+                            android:hint="@string/name"
+                            android:inputType="textPersonName"
                             android:maxLines="1"
                             android:backgroundTint="@color/colorPrimary"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputEmail"
+                        android:id="@+id/textInputPhoneNumber"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
                         android:layout_marginLeft="20dp"
@@ -82,15 +99,15 @@
                         app:endIconTint="@color/colorAccent"
                         app:hintTextColor="@color/colorAccent">
                         <EditText
-                            android:id="@+id/editTextEmail"
+                            android:id="@+id/editTextPhoneNumber"
                             style="@style/modifiedEditText"
-                            android:hint="@string/login_email_hint"
-                            android:inputType="textEmailAddress"
+                            android:hint="@string/phone_number"
+                            android:inputType="phone"
                             android:maxLines="1"
                             android:backgroundTint="@color/colorPrimary"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputPassword"
+                        android:id="@+id/textInputDescription"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
                         android:layout_marginLeft="20dp"
@@ -100,29 +117,13 @@
                         app:endIconTint="@color/colorAccent"
                         app:hintTextColor="@color/colorAccent">
                         <EditText
-                            android:id="@+id/editTextPassword"
+                            android:id="@+id/editTextDescription"
                             style="@style/modifiedEditText"
-                            android:hint="@string/login_password_hint"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:backgroundTint="@color/colorPrimary"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputConfirmPassword"
-                        style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:textColorHint="@color/colorAccent"
-                        app:boxStrokeColor="@color/colorAccent"
-                        app:endIconTint="@color/colorAccent"
-                        app:hintTextColor="@color/colorAccent">
-                        <EditText
-                            android:id="@+id/editTextConfirmPassword"
-                            style="@style/modifiedEditText"
-                            android:hint="@string/login_confirm_password_hint"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
+                            android:hint="@string/description_hint"
+                            android:inputType="textMultiLine"
+                            android:gravity="top|left"
+                            android:minLines="6"
+                            android:maxLines="6"
                             android:backgroundTint="@color/colorPrimary"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -131,7 +132,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="40dp"
                         android:layout_marginBottom="30dp"
-                        android:text="@string/continue_registration"
+                        android:text="@string/register_texto"
                         app:initialCornerAngle="27dp"
                         app:spinning_bar_color="#FFF"
                         app:spinning_bar_padding="6dp"
@@ -139,6 +140,7 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
     <View
@@ -156,6 +158,6 @@
         android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
         android:adjustViewBounds="false"
-        android:onClick="registerToLoginSidebarClick"
+        android:onClick="continueRegisterToRegisterSidebarClick"
         android:src="@drawable/ic_back_img" />
 </RelativeLayout>

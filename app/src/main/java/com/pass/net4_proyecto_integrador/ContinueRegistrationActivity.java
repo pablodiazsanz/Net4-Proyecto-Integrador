@@ -32,7 +32,7 @@ import java.io.File;
  * @version 1.0
  * @author Sebastian Huete, Sergio Turdasan, Alvaro Tunon y Pablo Diaz.
  */
-public class RegisterActivity extends AppCompatActivity {
+public class ContinueRegistrationActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSON_CODE = 100;
     private static final int REQUEST_IMAGE_GALLERY = 101;
     private Uri imageUri;
@@ -50,17 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_continue_register);
         galleryImage = (ImageView) findViewById(R.id.image_add);
-
-        btnRegister = findViewById(R.id.continueRegistrationButton);
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ContinueRegistrationActivity.class));
-            }
-        });
 
         /*name = findViewById(R.id.textInputName);
         email = findViewById(R.id.textInputEmail);
@@ -84,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 myDatabaseReference.child(newEmail).setValue(newUser);
             }
         });
-
+           */
 
         Glide.with(this)
                 .load("android.resource://" + getPackageName() + "/"+ R.drawable.monster_interrogation_add_icon)
@@ -96,17 +87,17 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if (ActivityCompat.checkSelfPermission(RegisterActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+                    if (ActivityCompat.checkSelfPermission(ContinueRegistrationActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
                         openGallery();
                     }else{
-                        ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMISSON_CODE);
+                        ActivityCompat.requestPermissions(ContinueRegistrationActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMISSON_CODE);
                     }
                 }else{
 
                 }
 
             }
-        });*/
+        });
     }
 
     /**
@@ -159,9 +150,10 @@ public class RegisterActivity extends AppCompatActivity {
      * from register to login.
      * @param view
      */
-    public void registerToLoginSidebarClick(View view){
-        startActivity(new Intent(this,LoginActivity.class));
+    public void continueRegisterToRegisterSidebarClick(View view){
+        startActivity(new Intent(this, RegisterActivity.class));
         overridePendingTransition(R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
+
 
 }
