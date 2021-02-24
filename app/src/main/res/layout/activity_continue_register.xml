@@ -107,7 +107,7 @@
                             android:backgroundTint="@color/colorPrimary"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputDescription"
+                        android:id="@+id/textInputDescriptionUser"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
                         android:layout_marginLeft="20dp"
