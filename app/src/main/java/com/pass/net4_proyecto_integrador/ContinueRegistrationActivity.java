@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
@@ -142,8 +143,12 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(accessIntent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Signed up failed", Toast.LENGTH_LONG).show();
-                        Log.d("ERROREG", task.getException().toString());
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException){
+                            Toast.makeText(getApplicationContext(), "This user is already registered", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Signed up failed", Toast.LENGTH_LONG).show();
+                            Log.d("ERROREG", task.getException().toString());
+                        }
                     }
                 }
             });

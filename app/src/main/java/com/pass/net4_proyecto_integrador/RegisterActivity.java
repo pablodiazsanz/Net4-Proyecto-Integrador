@@ -58,6 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(pwd)) {
             passwd.setError("Enter your password");
             return;
+        } else if (pwd.length() < 6) {
+            passwd.setError("Minimum length of password should be 6");
+            return;
         } else if (TextUtils.isEmpty(usuario)) {
             username.setError("Enter your username");
             return;

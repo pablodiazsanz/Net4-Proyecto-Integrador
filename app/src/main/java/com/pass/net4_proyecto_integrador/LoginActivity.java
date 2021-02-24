@@ -2,7 +2,9 @@ package com.pass.net4_proyecto_integrador;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private TextView txt_forgot_password;
     TextInputLayout email, passwd;
+    FirebaseAuth firebaseAuth;
     //Google
     private ImageView google_login;
     private GoogleSignInClient mGoogleSignInClient;
@@ -86,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
         //Google & Facebook
         mAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         loginButtonClick();
         forgotPasswordClick();
@@ -284,101 +289,46 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(v);
+                loginUser();
             }
         });
     }
 
+    public void loginUser() {
+        String correo = email.getEditText().getText().toString().trim();
+        String pwd = passwd.getEditText().getText().toString().trim();
 
-    private Boolean validateEmail() {
-        String value = email.getEditText().getText().toString();
-
-        if (value.isEmpty()) {
-            email.setError("Field cannot be empty");
-            return false;
-        } else {
-            email.setError(null);
-            email.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private Boolean validatePassword() {
-        String value = passwd.getEditText().getText().toString();
-
-        if (value.isEmpty()) {
-            passwd.setError("Field cannot be empty");
-            return false;
-        } else {
-            passwd.setError(null);
-            passwd.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    public void loginUser(View view) {
-        //Validate login info
-        if (!validateEmail() | !validatePassword()) {
+        if (TextUtils.isEmpty(correo)){
+            email.setError("Enter your email");
+            return;
+        } else if (TextUtils.isEmpty(pwd)) {
+            passwd.setError("Enter your password");
+            return;
+        } else if (pwd.length() < 6) {
+            passwd.setError("Minimum length of password should be 6");
+            return;
+        }  else if (!isValidEmail(correo)) {
+            email.setError("This is not a valid email");
             return;
         } else {
-            userInDatabase();
-        }
-    }
-
-    private void userInDatabase() {
-        final String userEmail = email.getEditText().getText().toString().replace(".", "1").trim();
-        final String userPasswd = passwd.getEditText().getText().toString().trim();
-
-        DatabaseReference myDatabaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        Query checkUser = myDatabaseReference.orderByChild("email").equalTo(userEmail);
-
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-
-                    email.setError(null);
-                    email.setErrorEnabled(false);
-
-                    Log.d("SNAPSHOTD", snapshot.toString());
-
-                    String passwdFromDB = snapshot.child(userEmail).child("passwd").getValue(String.class);
-
-                    if (passwdFromDB.equals(userPasswd)) {
-
-                        passwd.setError(null);
-                        passwd.setErrorEnabled(false);
-
-                        String nameFromDB = snapshot.child(userEmail).child("name").getValue(String.class);
-                        String emailFromDB = snapshot.child(userEmail).child("email").getValue(String.class);
-                        String phoneNumberFromDB = snapshot.child(userEmail).child("phoneNumber").getValue(String.class);
-
-                        Intent profileIntent = new Intent("SEND_PERSONAL_DATA");
-                        profileIntent.putExtra("name", nameFromDB);
-                        profileIntent.putExtra("email", emailFromDB);
-                        profileIntent.putExtra("phoneNumber", phoneNumberFromDB);
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(profileIntent);
-
+            firebaseAuth.signInWithEmailAndPassword(correo, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
                         Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(accessIntent);
-
                     } else {
-                        email.setError("No such email found");
-                        email.requestFocus();
+                        Toast.makeText(getApplicationContext(), "Signed in failed", Toast.LENGTH_LONG).show();
+                        Log.d("ERRORLOGIN", task.getException().toString());
                     }
-                } else {
-                    passwd.setError("Wrong password");
-                    passwd.requestFocus();
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ERRORE", error.getMessage());
-            }
-        });
+            });
+        }
+    }
+    private boolean isValidEmail(String correo) {
+        return (!TextUtils.isEmpty(correo) && Patterns.EMAIL_ADDRESS.matcher(correo).matches());
     }
 
 
