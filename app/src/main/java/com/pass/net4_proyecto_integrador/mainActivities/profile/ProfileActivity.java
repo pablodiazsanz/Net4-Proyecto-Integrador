@@ -1,17 +1,22 @@
 package com.pass.net4_proyecto_integrador.mainActivities.profile;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -30,6 +35,8 @@ public class ProfileActivity  extends AppCompatActivity {
     TabLayout tabLayout;
     AppBarLayout appBarLayout;
     ViewPager viewPager;
+    TextView name;
+    String nom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +86,20 @@ public class ProfileActivity  extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        name = findViewById(R.id.textViewNameProfile);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                messageReceiver, new IntentFilter("SEND_PERSONAL_DATA"));
+
+        name.setText(nom);
     }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            nom = intent.getStringExtra("name");
+
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

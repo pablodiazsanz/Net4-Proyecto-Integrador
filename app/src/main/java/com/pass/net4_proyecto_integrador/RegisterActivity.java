@@ -67,13 +67,13 @@ public class RegisterActivity extends AppCompatActivity {
                 myDatabaseReference = myDatabase.getReference("Users");
 
                 String newName = name.getEditText().getText().toString();
-                String newEmail = email.getEditText().getText().toString();
+                String newEmail = email.getEditText().getText().toString().replace(".", "1");
                 String newPhoneNumber = phoneNumber.getEditText().getText().toString();
                 String newPasswd = passwd.getEditText().getText().toString();
 
                 User newUser = new User(newName, newEmail, newPhoneNumber, newPasswd);
 
-                myDatabaseReference.push().setValue(newUser);
+                myDatabaseReference.child(newEmail).setValue(newUser);
             }
         });
 
