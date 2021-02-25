@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,9 +20,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pass.net4_proyecto_integrador.SettingsActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.maps.MapsActivity;
 import com.pass.net4_proyecto_integrador.R;
@@ -37,6 +42,9 @@ public class ProfileActivity  extends AppCompatActivity {
     ViewPager viewPager;
     TextView name;
     String nom;
+    ImageView img;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,34 +83,49 @@ public class ProfileActivity  extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar_id);
+        viewPager = (ViewPager) findViewById(R.id.viewpager_id);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         setSupportActionBar(myToolbar);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_id);
+
         ProfileAdapterActivity adapter = new ProfileAdapterActivity(getSupportFragmentManager());
+
         //Adding Fragments
         adapter.AddFragment(new ProfileAboutFragmentActivity(),"About");
         adapter.AddFragment(new ProfileValorationsFragmentActivity(),"Valorations");
+
         //Adapter Setup
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
         name = findViewById(R.id.textViewNameProfile);
+        img = (ImageView) findViewById(R.id.imageViewProfilePhoto);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-                messageReceiver, new IntentFilter("SEND_PERSONAL_DATA"));
+        firebaseAuth = FirebaseAuth.getInstance();
+        loadUserInformation();
 
     }
 
-    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            nom = intent.getStringExtra("name");
-            putName(nom);
+    private void loadUserInformation() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null){
+            if (user.getPhotoUrl() != null){
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .centerCrop()
+                        .transition(DrawableTransitionOptions.withCrossFade(300))
+                        .circleCrop()
+                        .into(img);
+            }
+
+            if (user.getDisplayName() != null){
+                name.setText(user.getDisplayName());
+            }
         }
-    };
 
-    private void putName(String nombre) {
-        name.setText(nombre);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

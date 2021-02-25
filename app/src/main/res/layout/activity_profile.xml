@@ -53,7 +53,7 @@
                     android:src="@drawable/icono_ubicacion_perfil" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageViewProfilePhoto"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
                     android:layout_marginLeft="230dp"
