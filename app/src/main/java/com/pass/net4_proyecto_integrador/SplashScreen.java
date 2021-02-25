@@ -16,8 +16,8 @@ import android.widget.ImageView;
  */
 public class SplashScreen extends Activity {
 
-    private Animation topAnimation, bottomAnimation;
-    private ImageView icon, name;
+    private Animation topAnimation, bottomAnimation, alphaAnimation;
+    private ImageView icon, name, logoSplash;
     private View screen;
 
     @Override
@@ -27,16 +27,19 @@ public class SplashScreen extends Activity {
         hideNavigationBarStatusBar();
 
         // Here we load the top and bottom animations
-        topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation_splash_screen);
-        bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation_splash_screen);
+        //topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation_splash_screen);
+        //bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation_splash_screen);
+        alphaAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_splash_screen);
 
         // Here we look for the views in the layout
-        icon = findViewById(R.id.iv_icon);
-        name = findViewById(R.id.iv_name);
+        //icon = findViewById(R.id.iv_icon);
+        //name = findViewById(R.id.iv_name);
+        logoSplash = findViewById(R.id.logo_splash);
 
         // Here we set the animations on the views
-        icon.setAnimation(topAnimation);
-        name.setAnimation(bottomAnimation);
+        //icon.setAnimation(topAnimation);
+        //name.setAnimation(bottomAnimation);
+        logoSplash.setAnimation(alphaAnimation);
 
         openApp(true);
     }

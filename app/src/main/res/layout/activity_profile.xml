@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="?attr/actionBarSize">
 
         <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar_profile"
@@ -34,7 +35,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textViewNameProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -52,7 +53,7 @@
                     android:src="@drawable/icono_ubicacion_perfil" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageViewProfilePhoto"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
                     android:layout_marginLeft="230dp"

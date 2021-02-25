@@ -1,10 +1,8 @@
-package com.pass.net4_proyecto_integrador;
+package com.pass.net4_proyecto_integrador.settingsActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.pass.net4_proyecto_integrador.R;
+import com.pass.net4_proyecto_integrador.SettingsActivity;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 

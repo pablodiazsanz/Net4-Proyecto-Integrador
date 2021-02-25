@@ -52,7 +52,7 @@
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputEmail"
+                android:id="@+id/textInputEmailLogin"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
                 android:layout_marginLeft="10dp"
@@ -73,7 +73,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputPassword"
+                android:id="@+id/textInputPasswordLogin"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
                 android:layout_marginLeft="10dp"
