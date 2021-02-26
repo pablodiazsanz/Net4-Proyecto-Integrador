@@ -158,17 +158,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/facebook_login"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
+                    android:layout_height="50dp"/>
+                <com.google.android.gms.common.SignInButton
                     android:id="@+id/google_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_google" />
+                    android:layout_marginTop="10dp"
+                    android:layout_width="190dp"
+                    android:layout_height="40dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -197,6 +197,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:src="@drawable/ic_facebook" />
+
+    <ImageView
+    android:id="@+id/google_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:src="@drawable/ic_google" />
     -->
 
 </RelativeLayout>

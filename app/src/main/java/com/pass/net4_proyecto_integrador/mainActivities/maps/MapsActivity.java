@@ -139,7 +139,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onProviderEnabled(@NonNull String provider) {
-                Log.d("Providerderderdredre", "Paso por aqui");
                 obtenerLocalizacion();
             }
         };
@@ -154,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Aqui recojemos las ultimas ubicaciones
         currentlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         //Este toast es para que muestre el mensaje de que busca una ubicacion
-        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_SHORT);
         toast.show();
     }
 
