@@ -117,7 +117,12 @@ public class ProfileActivity extends AppCompatActivity {
     private void setUserData(String datos) {
         String[] data = datos.split("-");
         if (data[0].equals("G")) {
-            name.setText(data[1]);
+            String[] nombreCompleto = data[1].split(" ");
+            if(nombreCompleto.length >= 2){
+                name.setText(nombreCompleto[0] + " " + nombreCompleto[1]);
+            }else{
+                name.setText(nombreCompleto[0]);
+            }
             email.setText(data[2]);
             Glide.with(ProfileActivity.this)
                     .load(Uri.parse(data[3]))
@@ -126,7 +131,11 @@ public class ProfileActivity extends AppCompatActivity {
                     .into(img);
         }else if (data[0].equals("F")){
             String[] nombreCompleto = data[1].split(" ");
-            name.setText(nombreCompleto[0]);
+            if(nombreCompleto.length >= 2){
+                name.setText(nombreCompleto[0] + " " + nombreCompleto[1]);
+            }else{
+                name.setText(nombreCompleto[0]);
+            }
             email.setText("Facebook Account");
             String url = data[3] + "?type=large";
             Glide.with(ProfileActivity.this)
