@@ -1,5 +1,6 @@
 package com.pass.net4_proyecto_integrador;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -59,8 +60,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btn_login;
     private TextView txt_forgot_password;
-    TextInputLayout email, passwd;
-    FirebaseAuth firebaseAuth;
+    private TextInputLayout email, passwd;
+    private FirebaseAuth firebaseAuth;
+    private Context contexto = this;
     //Google
     private SignInButton google_login;
     private GoogleSignInClient mGoogleSignInClient;
@@ -268,12 +270,12 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        CollectUserData.updateUIGoogle(contexto,user,"G");
                         Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        //FirebaseUser user = mAuth.getCurrentUser();
-                        //updateUI(user);
                     } else {
                         Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         //updateUI(null);

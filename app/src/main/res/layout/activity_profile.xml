@@ -33,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <TextView
                     android:id="@+id/textViewNameProfile"
                     android:layout_width="wrap_content"
@@ -45,12 +44,15 @@
                     android:textSize="35dp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="190dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="20dp"
+                <TextView
+                    android:id="@+id/textViewEmailProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="70dp"
-                    android:src="@drawable/icono_ubicacion_perfil" />
+                    android:text="pablo@gmail.com"
+                    android:textSize="20dp"
+                    android:textColor="@color/themeColor"/>
 
                 <ImageView
                     android:id="@+id/imageViewProfilePhoto"
@@ -58,7 +60,7 @@
                     android:layout_height="105dp"
                     android:layout_marginLeft="230dp"
                     android:layout_marginTop="23dp"
-                    app:srcCompat="@drawable/foto_perfil" />
+                    android:src="@drawable/foto_perfil"/>
 
 
             </RelativeLayout>
