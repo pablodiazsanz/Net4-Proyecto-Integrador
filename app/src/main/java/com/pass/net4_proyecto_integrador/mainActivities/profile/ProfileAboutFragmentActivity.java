@@ -47,10 +47,18 @@ public class ProfileAboutFragmentActivity extends Fragment {
         String datos = CollectUserData.getDatos();
         String[] data = datos.split("-");
         if (data[0].equals("G")) {
-            nombre.setText(data[1]);
+            String[] nombreCompleto = data[1].split(" ");
+            nombre.setText(nombreCompleto[0]);
+            apellido.setText(nombreCompleto[1]);
             email.setText(data[2]);
-            apellido.setText("");
             tlf.setText("Inserte un telefono");
+            contrasenia.setText("");
+        }else if (data[0].equals("F")){
+            String[] nombreCompleto = data[1].split(" ");
+            nombre.setText(nombreCompleto[0]);
+            apellido.setText(nombreCompleto[1]);
+            tlf.setText("Inserte un telefono");
+            email.setText("Facebook Account");
             contrasenia.setText("");
         }
     }

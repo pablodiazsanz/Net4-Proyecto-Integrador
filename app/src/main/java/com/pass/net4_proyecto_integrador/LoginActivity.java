@@ -207,6 +207,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    CollectUserData.updateUI(user,"F");
                     Toast.makeText(LoginActivity.this, "Log In Successfully facebook", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -271,7 +273,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        CollectUserData.updateUIGoogle(contexto,user,"G");
+                        CollectUserData.updateUI(user,"G");
                         Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

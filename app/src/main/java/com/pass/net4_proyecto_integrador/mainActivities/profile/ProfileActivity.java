@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView name;
     private TextView email;
-    private String nom;
     private ImageView img;
 
     private FirebaseAuth firebaseAuth;
@@ -122,6 +121,16 @@ public class ProfileActivity extends AppCompatActivity {
             email.setText(data[2]);
             Glide.with(ProfileActivity.this)
                     .load(Uri.parse(data[3]))
+                    .transition(DrawableTransitionOptions.withCrossFade(300))
+                    .circleCrop()
+                    .into(img);
+        }else if (data[0].equals("F")){
+            String[] nombreCompleto = data[1].split(" ");
+            name.setText(nombreCompleto[0]);
+            email.setText("Facebook Account");
+            String url = data[3] + "?type=large";
+            Glide.with(ProfileActivity.this)
+                    .load(url)
                     .transition(DrawableTransitionOptions.withCrossFade(300))
                     .circleCrop()
                     .into(img);

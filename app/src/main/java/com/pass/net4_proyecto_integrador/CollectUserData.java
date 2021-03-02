@@ -10,12 +10,11 @@ public class CollectUserData {
     private static String datos;
 
     //Recoger datos
-    public static void updateUIGoogle(Context context ,FirebaseUser user, String letra) {
-        GoogleSignInAccount sign = GoogleSignIn.getLastSignedInAccount(context);
-        if(sign != null){
-            String nombre = sign.getDisplayName();
-            String email = sign.getEmail();
-            String photo = sign.getPhotoUrl().toString();
+    public static void updateUI(FirebaseUser user, String letra) {
+        if(user != null){
+            String nombre = user.getDisplayName();
+            String email = user.getEmail();
+            String photo = user.getPhotoUrl().toString();
             setDatos(letra + "-" + nombre + "-" + email + "-" + photo);
         }
     }
