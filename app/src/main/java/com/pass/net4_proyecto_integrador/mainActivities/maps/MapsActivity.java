@@ -38,11 +38,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Para el Mapa
     private GoogleMap mMap;
     private final OnMapReadyCallback omrc = this;
-    private Location currentlocation;
     private LocationManager lm;
     private static final int REQUEST_CODE = 101;
-    private double longitud;
-    private double latitud;
+
     //context
     private Context contexto = this;
 
@@ -50,19 +48,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        // Para llamar al metodo onMapReady
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(omrc);
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        //Aqui prguntaremos si quiere dar permiso de ubicacion a la aplicacion en caso de que no tenga ira al metodo onRequestPermissionsResult(),
-        //si ya tiene los permiso ira directamente a obtenerLocalizacion()
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-            return;
-        } else {
-            obtenerLocalizacion();
-        }
+        checkPermissionClient();
 
         bnv = findViewById(R.id.nav_view_maps);
 
@@ -88,12 +80,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return true;
                     case R.id.navigation_profile:
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    private void checkPermissionClient() {
+        //Aqui prguntaremos si quiere dar permiso de ubicacion a la aplicacion en caso de que no tenga ira al metodo onRequestPermissionsResult(),
+        //si ya tiene los permiso ira directamente a obtenerLocalizacion()
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        } else {
+            obtenerLocalizacion();
+        }
     }
 
     @Override
@@ -111,30 +115,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        lastLoction();
+        //Este toast es para que muestre el mensaje de que busca una ubicacion
+        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_SHORT);
+        toast.show();
         //Aqui ponemos un oyesnte a la ubicacion y en caso de que sea nulo le decimos que ponga la ultima encontrada
         //y si no que compruebe si la latitud y longitud no son nulas
         //en caso de que sean busca otra vez y si las encuentra que lo marque en el mapa
         LocationListener oyente_localizaciones = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                location = currentlocation;
-                if (currentlocation == null) {
-                    lastLoction();
-                } else {
-                    latitud = currentlocation.getLatitude();
-                    longitud = currentlocation.getLongitude();
-                    // Para llamar al metodo onMapReady
-                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(omrc);
-                    lm.removeUpdates(this);
-                }
+                double latitud = location.getLatitude();
+                double longitud = location.getLongitude();
+                drawLocation(latitud,longitud);
+                lm.removeUpdates(this);
             }
+
             @Override
             public void onProviderDisabled(@NonNull String provider) {
-                Toast.makeText(MapsActivity.this,"Activa el GPS",Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity.this, "Activa el GPS", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -145,22 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, oyente_localizaciones);
     }
 
-    private void lastLoction() {
-        //Aqui revisamos si estan los permisos
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        //Aqui recojemos las ultimas ubicaciones
-        currentlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //Este toast es para que muestre el mensaje de que busca una ubicacion
-        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+    private void drawLocation(double latitud, double longitud) {
         //Aqui se pasan las coordenadas
         LatLng ubi = new LatLng(latitud, longitud);
         //Aqui dirigimos la camara a la ubicacion
@@ -169,5 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 10));
         //Esto es el marcador con el titulo de ubicacion
         mMap.addMarker(new MarkerOptions().position(ubi).title("Mi Ubicacion"));
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
     }
 }

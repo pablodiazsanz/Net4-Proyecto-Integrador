@@ -137,9 +137,8 @@ public class ProfileActivity extends AppCompatActivity {
                 name.setText(nombreCompleto[0]);
             }
             email.setText("Facebook Account");
-            String url = data[3] + "?type=large";
             Glide.with(ProfileActivity.this)
-                    .load(url)
+                    .load(data[3])
                     .transition(DrawableTransitionOptions.withCrossFade(300))
                     .circleCrop()
                     .into(img);
