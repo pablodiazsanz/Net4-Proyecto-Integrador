@@ -4,6 +4,7 @@ public class User {
     private String username, name, email, phoneNumber, description;
 
     public User() {
+        super();
     }
 
     public User(String username, String name, String email, String phoneNumber, String description) {

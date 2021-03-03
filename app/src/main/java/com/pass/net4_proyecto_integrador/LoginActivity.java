@@ -1,5 +1,6 @@
 package com.pass.net4_proyecto_integrador;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,10 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btn_login;
     private TextView txt_forgot_password;
-    TextInputLayout email, passwd;
-    FirebaseAuth firebaseAuth;
+    private TextInputLayout email, passwd;
+    private FirebaseAuth firebaseAuth;
+    private Context contexto = this;
     //Google
-    private ImageView google_login;
+    private SignInButton google_login;
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "LoginActivity";
     private static FirebaseAuth mAuth;
@@ -204,13 +207,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Log In Successfully facebook", Toast.LENGTH_LONG).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    CollectUserData.updateUI(user,"F");
+                    Toast.makeText(LoginActivity.this, "Log In Successfully facebook", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Log In Failed Facebook", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Log In Failed Facebook", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -246,10 +251,10 @@ public class LoginActivity extends AppCompatActivity {
     private void handleGoogleResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            Toast.makeText(LoginActivity.this, "Log In Successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Log In Successfully", Toast.LENGTH_SHORT).show();
             firebaseGoogleAuth(account);
         } catch (ApiException e) {
-            Toast.makeText(LoginActivity.this, "Log In Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Log In Failed", Toast.LENGTH_SHORT).show();
             firebaseGoogleAuth(null);
             e.printStackTrace();
         }
@@ -261,23 +266,27 @@ public class LoginActivity extends AppCompatActivity {
      * @param account
      */
     private void firebaseGoogleAuth(GoogleSignInAccount account) {
-        AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    //FirebaseUser user = mAuth.getCurrentUser();
-                    //updateUI(user);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    //updateUI(null);
+        try{
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+            mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        CollectUserData.updateUI(user,"G");
+                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
+                    }
                 }
-            }
-        });
+            });
+        } catch (NullPointerException e){
+            Toast.makeText(LoginActivity.this, "Elija un correo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //****************** BUTTONS ACTIONS ****************
@@ -298,7 +307,7 @@ public class LoginActivity extends AppCompatActivity {
         String correo = email.getEditText().getText().toString().trim();
         String pwd = passwd.getEditText().getText().toString().trim();
 
-        if (TextUtils.isEmpty(correo)){
+        if (TextUtils.isEmpty(correo)) {
             email.setError("Enter your email");
             return;
         } else if (TextUtils.isEmpty(pwd)) {
@@ -307,26 +316,27 @@ public class LoginActivity extends AppCompatActivity {
         } else if (pwd.length() < 6) {
             passwd.setError("Minimum length of password should be 6");
             return;
-        }  else if (!isValidEmail(correo)) {
+        } else if (!isValidEmail(correo)) {
             email.setError("This is not a valid email");
             return;
         } else {
             firebaseAuth.signInWithEmailAndPassword(correo, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(accessIntent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Signed in failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Signed in failed", Toast.LENGTH_SHORT).show();
                         Log.d("ERRORLOGIN", task.getException().toString());
                     }
                 }
             });
         }
     }
+
     private boolean isValidEmail(String correo) {
         return (!TextUtils.isEmpty(correo) && Patterns.EMAIL_ADDRESS.matcher(correo).matches());
     }
