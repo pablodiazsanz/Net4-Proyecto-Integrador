@@ -40,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final OnMapReadyCallback omrc = this;
     private LocationManager lm;
     private static final int REQUEST_CODE = 101;
+    private Location currentlocation;
 
     //context
     private Context contexto = this;
@@ -124,10 +125,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener oyente_localizaciones = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                double latitud = location.getLatitude();
-                double longitud = location.getLongitude();
-                drawLocation(latitud,longitud);
-                lm.removeUpdates(this);
+                location = currentlocation;
+                if (currentlocation == null) {
+                    lastLoction();
+                } else {
+                    double latitud = location.getLatitude();
+                    double longitud = location.getLongitude();
+                    drawLocation(latitud,longitud);
+                    lm.removeUpdates(this);
+                }
             }
 
             @Override
@@ -141,6 +147,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, oyente_localizaciones);
+    }
+
+    private void lastLoction() {
+        //Aqui revisamos si estan los permisos
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        //Aqui recojemos las ultimas ubicaciones
+        currentlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //Este toast es para que muestre el mensaje de que busca una ubicacion
+        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void drawLocation(double latitud, double longitud) {
