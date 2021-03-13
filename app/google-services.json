@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "52484245948-7vlo8s5miekk5ot1vorkjc3dm398nson.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pass.net4_proyecto_integrador",
+            "certificate_hash": "d60276d71d92b6480b4c89354505aecc1e1d92bd"
+          }
+        },
+        {
           "client_id": "52484245948-sff8mjd55ocnnohcitg6nbglo4srihlo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
