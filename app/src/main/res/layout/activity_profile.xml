@@ -34,25 +34,17 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textViewNameProfile"
+                    android:id="@+id/textViewUserNameProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="50dp"
                     android:text="Pablo Díaz"
                     android:textColor="@color/themeColor"
-                    android:textSize="35dp"
+                    android:textSize="25dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewEmailProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="70dp"
-                    android:text="pablo@gmail.com"
-                    android:textSize="20dp"
-                    android:textColor="@color/themeColor"/>
+
 
                 <ImageView
                     android:id="@+id/imageViewProfilePhoto"
@@ -68,23 +60,200 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout_id"
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabMode="fixed"
-            app:tabTextColor="@color/colorAccent">
+            android:orientation="vertical"
+            android:background="@color/colorFondoGris">
 
-        </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txt_datos_personales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Detalles personales"
+                            android:textColor="@color/themeColor"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"/>
+                        <ImageView
+                            android:id="@+id/img_edit1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="85dp"
+                            android:layout_marginTop="23dp"
+                            app:srcCompat="@drawable/ic_toolbar_edit" />
+
+                    </LinearLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputName"
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:helperText="Nombre Completo"
+                        app:helperTextTextColor="@color/colorAccent"
+                        >
+                        <TextView
+                            android:id="@+id/nameEditText"
+                            style="@style/modifiedEditText"
+                            android:text="Pablo Diaz Bellezon"
+                            android:textSize="16dp"
+                            android:inputType="textPersonName"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/colorPrimary"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputPhone"
+                        style="@style/parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:helperText="Teléfono"
+                        app:helperTextTextColor="@color/colorAccent"
+                        >
+                        <TextView
+                            android:id="@+id/phoneEditText"
+                            style="@style/modifiedEditText"
+                            android:text="+34 678945673"
+                            android:textSize="16dp"
+                            android:inputType="phone"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/colorPrimary"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/descriptionTextImput"
+                        style="@style/parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:helperText="Descripcion"
+                        app:helperTextTextColor="@color/colorAccent"
+                        >
+                        <TextView
+                            android:id="@+id/descriptionEditText"
+                            style="@style/modifiedEditText"
+                            android:text="Díaz Lorem ipsnse"
+                            android:textSize="16dp"
+                            android:inputType="textPersonName"
+                            android:textStyle="bold"
+
+                            android:backgroundTint="@color/colorPrimary"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txt_cuenta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Cuenta"
+                            android:textColor="@color/themeColor"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"/>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputEmail"
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:helperText="Email"
+                        app:helperTextTextColor="@color/colorAccent"
+                        >
+                        <TextView
+                            android:id="@+id/emailEditText"
+                            style="@style/modifiedEditText"
+                            android:text="pablodiaz@gmail.com"
+                            android:textSize="16dp"
+                            android:inputType="textEmailAddress"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/colorPrimary"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputPassword"
+                        style="@style/parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:helperText="Contrasena"
+                        app:helperTextTextColor="@color/colorAccent"
+                        >
+                        <TextView
+                            android:id="@+id/txt_pasword"
+                            style="@style/modifiedEditText"
+                            android:text="oooooooooooo0000000"
+                            android:textSize="16dp"
+                            android:inputType="textPassword"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/colorPrimary"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

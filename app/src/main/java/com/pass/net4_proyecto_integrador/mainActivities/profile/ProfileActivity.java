@@ -31,31 +31,47 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.pass.net4_proyecto_integrador.CollectUserData;
 import com.pass.net4_proyecto_integrador.SettingsActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.maps.MapsActivity;
 import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
-import com.pass.net4_proyecto_integrador.mainActivities.notifications.NotificationsFragment;
+import com.pass.net4_proyecto_integrador.mainActivities.notifications.ComunityActivity;
+
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private BottomNavigationView bnv;
-    private TabLayout tabLayout;
-    private AppBarLayout appBarLayout;
-    private ViewPager viewPager;
-    private TextView name;
-    private TextView email;
-    private ImageView img;
-
+    //firebase
     private FirebaseAuth firebaseAuth;
+   FirebaseUser user;
+   FirebaseDatabase firebaseDatabase;
+   DatabaseReference databaseReference;
+
+
+    private TextView usernameTxtView, nameTxtView, emailTxtView, phoneNumberTxtView, descriptionTxtView;
+    private ImageView img;
+    private final String TAG = this.getClass().getName().toUpperCase();
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private Map<String, String> userMap;
+    private String email;
+    private static final String USERS = "Users";
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         bnv = findViewById(R.id.nav_view_profile);
         bnv.setSelectedItemId(R.id.navigation_profile);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.navigation_chat:
-                        startActivity(new Intent(getApplicationContext(), NotificationsFragment.class));
+                        startActivity(new Intent(getApplicationContext(), ComunityActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.navigation_profile:
@@ -86,99 +102,86 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
-        appBarLayout = (AppBarLayout) findViewById(R.id.appBar_id);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_id);
+        //iniciar firebase
+        /*firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
-        setSupportActionBar(myToolbar);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users");
 
-        ProfileAdapterActivity adapter = new ProfileAdapterActivity(getSupportFragmentManager());
+        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        //Adding Fragments
-        adapter.AddFragment(new ProfileAboutFragmentActivity(), "About");
-        adapter.AddFragment(new ProfileValorationsFragmentActivity(), "Valorations");
+                    for (DataSnapshot ds : snapshot.getChildren()){
+                        String username = "" + ds.child("username").getValue();
+                        String name = "" + ds.child("name").getValue();
+                        String email = "" + ds.child("email").getValue();
+                        String phone = "" + ds.child("phoneNumber").getValue();
+                        String description = "" + ds.child("description").getValue();
 
-        //Adapter Setup
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+                        usernameTxtView.setText(username);
+                        nameTxtView.setText(name);
+                        emailTxtView.setText(email);
+                        phoneNumberTxtView.setText(phone);
+                        descriptionTxtView.setText(description);
 
-        name = findViewById(R.id.textViewNameProfile);
-        email = findViewById(R.id.textViewEmailProfile);
-        img = (ImageView) findViewById(R.id.imageViewProfilePhoto);
+                    }
+            }
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        loadUserInformation();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        setUserData(CollectUserData.getDatos());
+            }
+        });*/
+
+
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userRef = rootRef.child(USERS);
+        Log.v("USERID", userRef.getKey());
+
+        usernameTxtView = findViewById(R.id.textViewUserNameProfile);
+        nameTxtView = findViewById(R.id.nameEditText);
+        emailTxtView = findViewById(R.id.emailEditText);
+        phoneNumberTxtView = findViewById(R.id.phoneEditText);
+        descriptionTxtView = findViewById(R.id.descriptionEditText);
+
+        // Read from the database
+        userRef.addValueEventListener(new ValueEventListener() {
+            String name, username, mail, phone, description;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot keyId: dataSnapshot.getChildren()) {
+                    if (keyId.child("email").getValue().equals(email)) {
+                        username = keyId.child("username").getValue(String.class);
+                        name = keyId.child("name").getValue(String.class);
+                        mail = keyId.child("email").getValue(String.class);
+                        phone = keyId.child("phoneNumber").getValue(String.class);
+                        description = keyId.child("description").getValue(String.class);
+                        Log.v("username",username);
+                        break;
+                    }
+                }
+                usernameTxtView.setText(username);
+                nameTxtView.setText(name);
+                emailTxtView.setText(mail);
+                phoneNumberTxtView.setText(phone);
+                descriptionTxtView.setText(description);
 
     }
 
-    private void setUserData(String datos) {
-        String[] data = datos.split("-");
-        if (data[0].equals("G")) {
-            String[] nombreCompleto = data[1].split(" ");
-            if(nombreCompleto.length >= 2){
-                name.setText(nombreCompleto[0] + " " + nombreCompleto[1]);
-            }else{
-                name.setText(nombreCompleto[0]);
-            }
-            email.setText(data[2]);
-            Glide.with(ProfileActivity.this)
-                    .load(Uri.parse(data[3]))
-                    .transition(DrawableTransitionOptions.withCrossFade(300))
-                    .circleCrop()
-                    .into(img);
-        }else if (data[0].equals("F")){
-            String[] nombreCompleto = data[1].split(" ");
-            if(nombreCompleto.length >= 2){
-                name.setText(nombreCompleto[0] + " " + nombreCompleto[1]);
-            }else{
-                name.setText(nombreCompleto[0]);
-            }
-            email.setText("Facebook Account");
-            Glide.with(ProfileActivity.this)
-                    .load(data[3])
-                    .transition(DrawableTransitionOptions.withCrossFade(300))
-                    .circleCrop()
-                    .into(img);
-        }
-    }
-
-    private void loadUserInformation() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        if (user != null) {
-            if (user.getPhotoUrl() != null) {
-                Glide.with(this)
-                        .load(user.getPhotoUrl().toString())
-                        .centerCrop()
-                        .transition(DrawableTransitionOptions.withCrossFade(300))
-                        .circleCrop()
-                        .into(img);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
 
-            if (user.getDisplayName() != null) {
-                name.setText(user.getDisplayName());
-            }
-        }
-
-    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.settings_button) {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    });
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_profile_fragment, menu);
-        return super.onCreateOptionsMenu(menu);
+
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".mainActivities.notifications.NotificationsFragment">
+    tools:context=".mainActivities.notifications.ComunityActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="Mensajes"
+            app:title="Comunidad"
             app:titleTextColor="@color/colorAccent">
 
         </androidx.appcompat.widget.Toolbar>
