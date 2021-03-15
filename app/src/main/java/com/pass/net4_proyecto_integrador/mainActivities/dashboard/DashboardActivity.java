@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pass.net4_proyecto_integrador.mainActivities.maps.MapsActivity;
 import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
-import com.pass.net4_proyecto_integrador.mainActivities.notifications.NotificationsFragment;
+import com.pass.net4_proyecto_integrador.mainActivities.notifications.ComunityActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navigation_chat:
-                        startActivity(new Intent(getApplicationContext(), NotificationsFragment.class));
+                        startActivity(new Intent(getApplicationContext(), ComunityActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navigation_profile:

@@ -15,7 +15,7 @@ import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActiv
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
-public class NotificationsFragment extends AppCompatActivity {
+public class ComunityActivity extends AppCompatActivity {
 
     BottomNavigationView bnv;
 
