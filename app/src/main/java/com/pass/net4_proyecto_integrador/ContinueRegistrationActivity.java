@@ -60,8 +60,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
     TextInputLayout name, phoneNumber, description;
     Button btnRegister;
 
-    FirebaseDatabase myDatabase;
-    DatabaseReference myDatabaseReference;
+
     FirebaseAuth firebaseAuth;
 
     String username, email, pwd, profileImageUrl;
@@ -124,12 +123,6 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
             name.setError("Enter your name");
             return;
         } else {
-            myDatabase = FirebaseDatabase.getInstance();
-            myDatabaseReference = myDatabase.getReference("Users");
-
-            User nuevoUsuario = new User(username, nombre, email, numero, descripcion);
-
-            myDatabaseReference.child(username).setValue(nuevoUsuario);
 
             firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -137,13 +130,20 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         saveUserInformation();
 
+                        double lat = 0.0;
+                        double log = 0.0;
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        String userUid = firebaseUser.getUid();
+                        User usuario = new User(userUid,username, nombre, email, numero, descripcion,lat,log);
+                        CollectUserData.saveFirebase(usuario);
+
                         Toast.makeText(getApplicationContext(), "Signed up succesfully", Toast.LENGTH_LONG).show();
                         Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(accessIntent);
                     } else {
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException){
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(getApplicationContext(), "This user is already registered", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Signed up failed", Toast.LENGTH_LONG).show();
@@ -160,7 +160,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        if(user != null){
+        if (user != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
                     .setPhotoUri(imageUri)
@@ -170,7 +170,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
                             }
                         }

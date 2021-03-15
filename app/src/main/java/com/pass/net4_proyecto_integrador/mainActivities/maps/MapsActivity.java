@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +15,7 @@ import android.provider.Settings;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,17 +26,29 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.pass.net4_proyecto_integrador.CollectUserData;
 import com.pass.net4_proyecto_integrador.LoginActivity;
 import com.pass.net4_proyecto_integrador.R;
+import com.pass.net4_proyecto_integrador.User;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.notifications.NotificationsFragment;
 import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.List;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CollectUserData.Comunicacion {
+    //probar android:launchMode="singleTask"
+
     //Barra de abajo
     private BottomNavigationView bnv;
     //Para el Mapa
@@ -40,10 +56,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final OnMapReadyCallback omrc = this;
     private LocationManager lm;
     private static final int REQUEST_CODE = 101;
-    private Location currentlocation;
-
+    private FirebaseUser u;
+    private FloatingActionButton find_location;
     //context
     private Context contexto = this;
+    private CollectUserData.Comunicacion a = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +71,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(omrc);
 
+        u = FirebaseAuth.getInstance().getCurrentUser();
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         checkPermissionClient();
 
+        find_location = findViewById(R.id.fab);
+        find_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obtenerLocalizacion();
+            }
+        });
+        CollectUserData.takeData(a);
         bnv = findViewById(R.id.nav_view_maps);
-
         bnv.setSelectedItemId(R.id.navigation_maps);
 
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,8 +121,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ActivityCompat.requestPermissions(this, new String[]
                     {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
-        } else {
-            obtenerLocalizacion();
         }
     }
 
@@ -125,15 +148,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener oyente_localizaciones = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                location = currentlocation;
-                if (currentlocation == null) {
-                    lastLoction();
-                } else {
-                    double latitud = location.getLatitude();
-                    double longitud = location.getLongitude();
-                    drawLocation(latitud,longitud);
-                    lm.removeUpdates(this);
-                }
+                findLocation(location);
+                lm.removeUpdates(this);
             }
 
             @Override
@@ -143,37 +159,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onProviderEnabled(@NonNull String provider) {
-                obtenerLocalizacion();
             }
         };
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, oyente_localizaciones);
     }
 
-    private void lastLoction() {
-        //Aqui revisamos si estan los permisos
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+    private void findLocation(Location location) {
+        if (location != null) {
+            double latitud = location.getLatitude();
+            double longitud = location.getLongitude();
+            String username = u.getUid();
+            CollectUserData.updateLocation(latitud, longitud, username);
+            CollectUserData.takeData(a);
         }
-        //Aqui recojemos las ultimas ubicaciones
-        currentlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //Este toast es para que muestre el mensaje de que busca una ubicacion
-        Toast toast = Toast.makeText(contexto, "Buscando Ubicacion.....", Toast.LENGTH_SHORT);
-        toast.show();
     }
 
-    private void drawLocation(double latitud, double longitud) {
+    private void drawLocation(double latitud, double longitud, String nombre,String userID) {
         //Aqui se pasan las coordenadas
         LatLng ubi = new LatLng(latitud, longitud);
-        //Aqui dirigimos la camara a la ubicacion
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
-        //El zoom que va de 0 a 21
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 10));
-        //Esto es el marcador con el titulo de ubicacion
-        mMap.addMarker(new MarkerOptions().position(ubi).title("Mi Ubicacion"));
+        String currentUID = u.getUid();
+        if(userID.equals(currentUID)) {
+            //Aqui dirigimos la camara a la ubicacion
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
+            //Esto es el marcador con el titulo de ubicacion
+            mMap.addMarker(new MarkerOptions().position(ubi).title(nombre));
+        }else{
+            //Aqui dirigimos la camara a la ubicacion
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
+            //Esto es el marcador con el titulo de ubicacion
+            mMap.addMarker(new MarkerOptions().position(ubi).title(nombre));
+        }
+    }
+
+    private String changeName() {
+        String nombre_user = u.getUid();
+        String username;
+        String[] nombreCompleto = nombre_user.split(" ");
+        if (nombreCompleto.length >= 2) {
+            username = nombreCompleto[0] + " " + nombreCompleto[1];
+        } else {
+            username = nombreCompleto[0];
+        }
+        return username;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
+
+    @Override
+    public void sendData(List<User> users) {
+        User uBueno = new User();
+        String currentUID = u.getUid();
+        mMap.clear();
+        for (User user : users) {
+            if (user.getUserId().equals(currentUID)){
+                uBueno = user;
+            }else{
+                if ((user.getLatitud() == 0)){
+                }else {
+                    drawLocation(user.getLatitud(), user.getLongitud(), user.getUsername(), user.getUserId());
+                }
+            }
+        }
+        drawLocation(uBueno.getLatitud(),uBueno.getLongitud(),uBueno.getUsername(),uBueno.getUserId());
     }
 }

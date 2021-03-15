@@ -50,12 +50,12 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView img;
 
     private FirebaseAuth firebaseAuth;
+    FirebaseUser u;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         bnv = findViewById(R.id.nav_view_profile);
         bnv.setSelectedItemId(R.id.navigation_profile);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,8 +109,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         loadUserInformation();
-
-        setUserData(CollectUserData.getDatos());
 
     }
 

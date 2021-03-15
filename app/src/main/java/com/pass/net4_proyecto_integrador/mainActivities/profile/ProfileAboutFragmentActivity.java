@@ -44,7 +44,7 @@ public class ProfileAboutFragmentActivity extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String datos = CollectUserData.getDatos();
+        String datos = "CollectUserData.getDatos();";
         String[] data = datos.split("-");
         if (data[0].equals("G")) {
             String[] nombreCompleto = data[1].split(" ");
