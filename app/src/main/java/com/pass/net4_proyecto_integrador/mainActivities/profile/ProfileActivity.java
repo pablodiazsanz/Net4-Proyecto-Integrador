@@ -93,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), HelpAlertActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.navigation_chat:
+                    case R.id.navigation_community:
                         startActivity(new Intent(getApplicationContext(), ComunityActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -185,7 +185,7 @@ public class ProfileActivity extends AppCompatActivity {
                 // (See MyAppGlideModule for Loader registration)
                 Glide.with(getApplicationContext())
                         .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/profilepics%2F" + LoginActivity.USERUID + ".jpg?alt=media&token=dcb65d07-cace-45b4-8fb7-e38880be36ce"))
-                        .placeholder(R.drawable.monster_interrogation_add_icon)
+                        .placeholder(R.drawable.user_icon)
                         .centerCrop()
                         .transition(DrawableTransitionOptions.withCrossFade(300))
                         .circleCrop()

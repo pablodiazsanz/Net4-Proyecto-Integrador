@@ -101,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         startActivity(new Intent(getApplicationContext(), HelpAlertActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.navigation_chat:
+                    case R.id.navigation_community:
                         startActivity(new Intent(getApplicationContext(), ComunityActivity.class));
                         overridePendingTransition(0, 0);
                         return true;

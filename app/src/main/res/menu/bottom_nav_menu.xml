@@ -15,9 +15,9 @@
         android:icon="@drawable/ic_add"
         android:title="@string/title_help_alert" />
     <item
-        android:id="@+id/navigation_chat"
+        android:id="@+id/navigation_community"
         android:icon="@drawable/ic_activity"
-        android:title="@string/title_chat" />
+        android:title="@string/title_comunity" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile"
