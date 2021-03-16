@@ -45,6 +45,7 @@ public class ComunityActivity extends AppCompatActivity implements SearchView.On
         svSearch = findViewById(R.id.svSearch);
         initListener();
 
+
         bnv = findViewById(R.id.nav_community);
         bnv.setSelectedItemId(R.id.navigation_community);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
