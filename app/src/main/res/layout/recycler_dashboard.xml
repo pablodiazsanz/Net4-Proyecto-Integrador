@@ -1,62 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="280dp">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".mainActivities.dashboard.DashboardActivity">
 
-    <androidx.cardview.widget.CardView
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="8dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/imageviewCV"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="20dp"/>
+                android:scaleType="centerCrop"/>
+
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
                 <TextView
                     android:id="@+id/tituloCV"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Título"
+                    android:textSize="25dp"
                     android:textColor="@color/primaryTextColor"
-                    android:layout_marginTop="20dp"
-                    android:textSize="20dp"/>
+                    />
                 <TextView
                     android:id="@+id/descripcionCV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Título"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"/>
+                    android:textSize="12dp"/>
                 <TextView
                     android:id="@+id/fechaCV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Título"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"/>
+                    android:textSize="14dp"/>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:background="@color/colorFondoGris">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_alert_urgencia"
+                    android:layout_margin="5dp"/>
                 <TextView
                     android:id="@+id/urgenciaCV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Título"
-                    android:layout_marginTop="20dp"
-                    android:textSize="20dp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="6dp"
+                    android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_alert_share_icon"
+                    android:paddingStart="210dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_alert_chat_icon"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

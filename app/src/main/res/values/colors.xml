@@ -8,13 +8,16 @@
     <color name="tabIdicatorColor">#025373</color>
     <color name="colorTextosGris">#5C95AB</color>
     <color name="colorFondoGris">#f0f0f0</color>
+    <color name="colorFondoGrisClaro">#F9F9F9</color>
 
     <color name="darkTextColor">#020000</color>
     <color name="contentTextColor">#020000</color>
     <color name="register_bk_color">#025373</color>
     <color name="login_bk_color">#fff</color>
     <color name="whiteTextColor">#fff</color>
-    <color name="primaryTextColor">#025373</color>1A000000
+    <color name="primaryTextColor">#025373</color>
+    <color name="urgenciaColor">#E95237</color>
+
 
 
 </resources>
