@@ -68,7 +68,6 @@ public class UsersProfileActivity extends AppCompatActivity {
                 User u = snapshot.getValue(User.class);
                 tituloPerfil.setText(u.getUsername());
                 descripcionPerfil.setText(u.getDescription());
-
             }
 
             @Override
