@@ -2,6 +2,7 @@ package com.pass.net4_proyecto_integrador;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,13 +29,14 @@ import java.util.TimeZone;
 
 public class ChatActivity extends AppCompatActivity {
     private EditText txtMensaje;
-    private TextView txtTituloChat;
+    private Toolbar toolbar;
     private RecyclerView recyclerViewChat;
     private Button btnEnviar;
     private MiAdaptadorChat adaptador;
     private String username;
-    RecyclerView.LayoutManager gestor;
-    ArrayList<Mensajes> listaMensajes;
+    private RecyclerView.LayoutManager gestor;
+    private ArrayList<Mensajes> listaMensajes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         txtMensaje = findViewById(R.id.edit_txt_chat);
-        txtTituloChat = findViewById(R.id.txt_titleChat);
+        toolbar = findViewById(R.id.toolbar_chat);
         recyclerViewChat = findViewById(R.id.recycler_chat);
         btnEnviar = findViewById(R.id.btn_chat);
 
@@ -51,6 +53,9 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userUId = intent.getStringExtra("userId");
         String tituloEvent = intent.getStringExtra("tituloEvent");
+
+        toolbar.setTitle("Chat " + tituloEvent);
+
         DatabaseReference referenceChat = FirebaseDatabase.getInstance().getReference();
         DatabaseReference referenceMessage = referenceChat.child("Chats").child(userUId + "-" + tituloEvent);
         DatabaseReference referenceUser = referenceChat.child("Users").child(LoginActivity.USERUID);
@@ -94,6 +99,7 @@ public class ChatActivity extends AppCompatActivity {
                 String[] hora = cogerHora();
                 Mensajes m = new Mensajes(txtMensaje.getText().toString().trim(),username,LoginActivity.USERUID,hora[0]);
                 referenceMessage.child(hora[1]).setValue(m);
+                txtMensaje.setText("");
             }
         });
 
