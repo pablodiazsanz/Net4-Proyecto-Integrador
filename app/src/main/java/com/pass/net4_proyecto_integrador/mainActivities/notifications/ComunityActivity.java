@@ -35,7 +35,7 @@ public class ComunityActivity extends AppCompatActivity implements SearchView.On
     ArrayList<User> listaUsuarios;
     RecyclerView rv;
     RecyclerView.LayoutManager gestor;
-    Community_activity_adapter miAdaptador;
+    CommunityAdapter miAdaptador;
     private SearchView svSearch;
 
     @Override
@@ -101,7 +101,7 @@ public class ComunityActivity extends AppCompatActivity implements SearchView.On
     }
 
     private void insertarDatos() {
-        miAdaptador = new Community_activity_adapter(listaUsuarios);
+        miAdaptador = new CommunityAdapter(listaUsuarios);
         rv.setLayoutManager(gestor);
         rv.setAdapter(miAdaptador);
     }

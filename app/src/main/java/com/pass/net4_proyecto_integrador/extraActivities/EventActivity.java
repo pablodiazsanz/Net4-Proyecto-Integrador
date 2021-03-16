@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pass.net4_proyecto_integrador.ChatActivity;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.R;
 
@@ -101,6 +102,16 @@ public class EventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), UsersProfileActivity.class);
                 i.putExtra("userId", eventUserId);
+                startActivity(i);
+            }
+        });
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
+                i.putExtra("userId", eventUserId);
+                i.putExtra("tituloEvent", eventTitulo);
                 startActivity(i);
             }
         });
