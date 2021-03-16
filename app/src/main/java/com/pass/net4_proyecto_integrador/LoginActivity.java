@@ -53,19 +53,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private TextView txt_forgot_password;
     private TextInputLayout email, passwd;
-    private FirebaseAuth firebaseAuth;
-    private Context contexto = this;
     //Google
     private SignInButton google_login;
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "LoginActivity";
     private static FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 54654;
-    //Facebook
-    private CallbackManager callbackManager;
-    private LoginButton facebook_login;
-    private AccessTokenTracker accessTokenTracker;
-    private FirebaseAuth.AuthStateListener authStateListener;
+
+    public static String USERUID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +71,10 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         txt_forgot_password = findViewById(R.id.txt_forget);
         google_login = findViewById(R.id.google_login);
-        facebook_login = findViewById(R.id.facebook_login);
         email = findViewById(R.id.textInputEmailLogin);
         passwd = findViewById(R.id.textInputPasswordLogin);
-        //facebook_login.setBackgroundResource(R.drawable.ic_facebook);
 
-        //Google & Facebook
         mAuth = FirebaseAuth.getInstance();
-        callbackManager = CallbackManager.Factory.create();
-
-        firebaseAuth = FirebaseAuth.getInstance();
 
         loginButtonClick();
         forgotPasswordClick();
@@ -102,25 +91,107 @@ public class LoginActivity extends AppCompatActivity {
         googleLoginClick();
     }
 
+
+    /**
+     * In this method we have put the setOnClickListener of the login button.
+     */
+    private void loginButtonClick() {
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser();
+            }
+        });
+    }
+
+    public void loginUser() {
+        String correo = email.getEditText().getText().toString().trim();
+        String pwd = passwd.getEditText().getText().toString().trim();
+
+        if (TextUtils.isEmpty(correo)) {
+            email.setError("Enter your email");
+            return;
+        } else if (TextUtils.isEmpty(pwd)) {
+            passwd.setError("Enter your password");
+            return;
+        } else if (pwd.length() < 6) {
+            passwd.setError("Minimum length of password should be 6");
+            return;
+        } else if (!isValidEmail(correo)) {
+            email.setError("This is not a valid email");
+            return;
+        } else {
+            mAuth.signInWithEmailAndPassword(correo, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        USERUID = mAuth.getCurrentUser().getUid();
+                        Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                        accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(accessIntent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Signed in failed", Toast.LENGTH_SHORT).show();
+                        Log.d("ERRORLOGIN", task.getException().toString());
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean isValidEmail(String correo) {
+        return (!TextUtils.isEmpty(correo) && Patterns.EMAIL_ADDRESS.matcher(correo).matches());
+    }
+
+
+    /**
+     * In this method we have implemented the setOnClickListener of the
+     * forgot password text field.
+     */
+    private void forgotPasswordClick() {
+        txt_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogForgotPassword();
+            }
+        });
+    }
+
+    /**
+     * Este método sirve para hacer la animación hacia el sign up activity
+     *
+     * @param view
+     */
+    public void loginToRegisterSidebarClick(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+    }
+
+    /**
+     * En este método mostramos la alerta de recuperar la contraseña
+     */
+    private void showAlertDialogForgotPassword() {
+        // Here we setup the alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(getLayoutInflater().inflate(R.layout.activity_email_recovery,
+                null));
+
+        // Here we create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
-        // Configure Facebook Sign In
-        facebook_login.setReadPermissions("email", "public_profile");
-        facebookLoginClick();
-        authListener();
-        // Configure Facebook Listener
-        mAuth.addAuthStateListener(authStateListener);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (authStateListener != null) {
-            // Configure Facebook remove Listener
-            mAuth.removeAuthStateListener(authStateListener);
-            mAuth.signOut();
-        }
+
     }
 
     /**
@@ -138,81 +209,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //Here is the call back for Faccebook
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         //Here is the signed account of google
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleGoogleResult(task);
         }
-    }
-
-    //****************** FACEBOOK ****************
-
-    /**
-     * This method is to create a Auth Listener
-     */
-    private void authListener() {
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Log.d(TAG, "Usuario encontardo");
-                }
-            }
-        };
-    }
-
-    /**
-     * In this method we have put the setOnClickListener of the Facebook login LoginButton.
-     * Here we check if the client register, cancel the operation or it was an error
-     */
-    private void facebookLoginClick() {
-        facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookResult(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel");
-                Toast.makeText(LoginActivity.this, "Facebook Cancel", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "onError");
-                Toast.makeText(LoginActivity.this, "Facebook Error ", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
-     * In this method check if the register was successful, if it was, it do the Intent and change to the mainactivity
-     *
-     * @param accessToken
-     */
-    private void handleFacebookResult(AccessToken accessToken) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    CollectUserData.updateUI(user,"F");
-                    Toast.makeText(LoginActivity.this, "Log In Successfully facebook", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Log In Failed Facebook", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     //****************** GOOGLE ****************
@@ -267,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        CollectUserData.updateUI(user,"G");
+                        CollectUserData.updateUI(user, "G");
                         Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -282,96 +284,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Elija un correo", Toast.LENGTH_SHORT).show();
         }
     }
+}
 
     //****************** BUTTONS ACTIONS ****************
-
-    /**
-     * In this method we have put the setOnClickListener of the login button.
-     */
-    private void loginButtonClick() {
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser();
-            }
-        });
-    }
-
-    public void loginUser() {
-        String correo = email.getEditText().getText().toString().trim();
-        String pwd = passwd.getEditText().getText().toString().trim();
-
-        if (TextUtils.isEmpty(correo)) {
-            email.setError("Enter your email");
-            return;
-        } else if (TextUtils.isEmpty(pwd)) {
-            passwd.setError("Enter your password");
-            return;
-        } else if (pwd.length() < 6) {
-            passwd.setError("Minimum length of password should be 6");
-            return;
-        } else if (!isValidEmail(correo)) {
-            email.setError("This is not a valid email");
-            return;
-        } else {
-            firebaseAuth.signInWithEmailAndPassword(correo, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Intent accessIntent = new Intent(getApplicationContext(), MapsActivity.class);
-                        accessIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        accessIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(accessIntent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Signed in failed", Toast.LENGTH_SHORT).show();
-                        Log.d("ERRORLOGIN", task.getException().toString());
-                    }
-                }
-            });
-        }
-    }
-
-    private boolean isValidEmail(String correo) {
-        return (!TextUtils.isEmpty(correo) && Patterns.EMAIL_ADDRESS.matcher(correo).matches());
-    }
-
-
-    /**
-     * In this method we have implemented the setOnClickListener of the
-     * forgot password text field.
-     */
-    private void forgotPasswordClick() {
-        txt_forgot_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAlertDialogForgotPassword();
-            }
-        });
-    }
-
-    /**
-     * In this method we have implemented the animation to the sidebar that moves
-     * from login to register.
-     *
-     * @param view
-     */
-    public void loginToRegisterSidebarClick(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
-        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
-    }
-
-    /**
-     * In this method, the password recovery screen has been implemented
-     * as an alert dialog.
-     */
-    private void showAlertDialogForgotPassword() {
-        // Here we setup the alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(getLayoutInflater().inflate(R.layout.activity_email_recovery,
-                null));
-
-        // Here we create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-}

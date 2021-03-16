@@ -37,7 +37,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.pass.net4_proyecto_integrador.CollectUserData;
+import com.pass.net4_proyecto_integrador.LoginActivity;
 import com.pass.net4_proyecto_integrador.SettingsActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.maps.MapsActivity;
 import com.pass.net4_proyecto_integrador.R;
@@ -70,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        firebaseAuth = FirebaseAuth.getInstance();
         bnv = findViewById(R.id.nav_view_profile);
         bnv.setSelectedItemId(R.id.navigation_profile);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,6 +103,9 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
+        setSupportActionBar(myToolbar);
 
         //iniciar firebase
         /*firebaseAuth = FirebaseAuth.getInstance();
@@ -135,8 +142,8 @@ public class ProfileActivity extends AppCompatActivity {
         });*/
 
 
-        Intent intent = getIntent();
-        email = intent.getStringExtra("email");
+       //Intent intent = getIntent();
+        //email = intent.getStringExtra("email");
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootRef.child(USERS);
         Log.v("USERID", userRef.getKey());
@@ -153,7 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot keyId: dataSnapshot.getChildren()) {
-                    if (keyId.child("email").getValue().equals(email)) {
+                    if (keyId.child("userId").getValue().equals(LoginActivity.USERUID)) {
                         username = keyId.child("username").getValue(String.class);
                         name = keyId.child("name").getValue(String.class);
                         mail = keyId.child("email").getValue(String.class);
@@ -169,6 +176,21 @@ public class ProfileActivity extends AppCompatActivity {
                 phoneNumberTxtView.setText(phone);
                 descriptionTxtView.setText(description);
 
+                //StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://net4-515ff.appspot.com/profilepics/okUGm4ltYOaXkV0tArO3Hfj1V5J2.jpg");
+
+                // ImageView in your Activity
+                ImageView imageView = findViewById(R.id.imageViewProfilePhoto);
+
+                // Download directly from StorageReference using Glide
+                // (See MyAppGlideModule for Loader registration)
+                Glide.with(getApplicationContext())
+                        .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/profilepics%2F" + LoginActivity.USERUID + ".jpg?alt=media&token=dcb65d07-cace-45b4-8fb7-e38880be36ce"))
+                        .placeholder(R.drawable.monster_interrogation_add_icon)
+                        .centerCrop()
+                        .transition(DrawableTransitionOptions.withCrossFade(300))
+                        .circleCrop()
+                        .into(imageView);
+
     }
 
             @Override
@@ -182,4 +204,20 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.settings_button) {
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile_fragment, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }

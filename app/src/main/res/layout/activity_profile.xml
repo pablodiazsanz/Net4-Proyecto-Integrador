@@ -17,6 +17,7 @@
             android:id="@+id/toolbar_profile"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_profile_fragment"
             android:background="@color/colorPrimary"
             app:title="Profile"
             app:titleTextColor="@color/colorAccent"></androidx.appcompat.widget.Toolbar>
