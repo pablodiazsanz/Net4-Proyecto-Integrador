@@ -24,27 +24,12 @@ public class CollectUserData {
     private static DatabaseReference myDatabaseReference = myDatabase.getReference("Users");
 
     //Recoger datos
-    public static void updateUI(FirebaseUser user, String letra) {
+    public static void updateUI(FirebaseUser user) {
         if (user != null) {
-            String nombre,username;
-            String description = "";
-            String tlf = "";
-            String nombre_user = user.getDisplayName();
-            String[] nombreCompleto = nombre_user.split(" ");
-            if (nombreCompleto.length >= 2) {
-                nombre = nombreCompleto[0] + " " + nombreCompleto[1];
-                username = nombreCompleto[0] + " " + nombreCompleto[1] + Math.random();
-            } else {
-                nombre = nombreCompleto[0];
-                username = nombreCompleto[0] + Math.random();
-            }
-            if (letra == "G") {
-                description = "Cuenta Google";
-            }
-            if (letra == "F") {
-                description = "Cuenta Facebook";
-            }
-            User u = new User(user.getUid(),username, nombre, user.getEmail(), tlf, description,0.0,0.0);
+            String nombre = changeName(user.getDisplayName());
+            String username = changeUsername(user.getEmail());
+            User u = new User(user.getUid(),username, nombre, user.getEmail(),
+                    "Numero ocultado por Google", "Cuenta Google",0.0,0.0);
             saveFirebase(u);
         }
     }
@@ -78,6 +63,21 @@ public class CollectUserData {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private static String changeName(String nombre_user) {
+        String nombre;
+        String[] nombreCompleto = nombre_user.split(" ");
+        if (nombreCompleto.length >= 2) {
+            return nombre = nombreCompleto[0] + " " + nombreCompleto[1];
+        } else {
+            return nombre = nombreCompleto[0];
+        }
+    }
+
+    private static String changeUsername(String email) {
+        String[] array = email.split("@");
+        return array[0];
     }
 
     public interface Comunicacion{
