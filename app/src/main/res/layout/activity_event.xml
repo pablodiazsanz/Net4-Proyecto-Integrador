@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorFondoGris"
     android:fitsSystemWindows="true"
-    tools:context=".EventActivity">
+    tools:context=".extraActivities.EventActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +52,8 @@
                             android:id="@+id/imgEvento"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:layout_margin="10dp" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/round_image_view"/>
 
                         <TextView
                             android:id="@+id/tituloEvento"

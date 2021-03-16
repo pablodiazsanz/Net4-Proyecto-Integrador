@@ -1,4 +1,4 @@
-package com.pass.net4_proyecto_integrador.mainActivities.dashboard;
+package com.pass.net4_proyecto_integrador.extraActivities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,31 +13,31 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.pass.net4_proyecto_integrador.extraActivities.EventActivity;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.R;
+import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardAdapter;
 
 import java.util.ArrayList;
 
-public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MiContenedorDeVistas>{
+public class UsersProfileAdapter extends RecyclerView.Adapter<DashboardAdapter.MiContenedorDeVistas>{
 
     private ArrayList<Evento> listaEventos;
     View vista;
 
-    public DashboardAdapter(ArrayList<Evento> listaEventos) {
+    public UsersProfileAdapter(ArrayList<Evento> listaEventos) {
         this.listaEventos = listaEventos;
     }
 
     @NonNull
     @Override
-    public MiContenedorDeVistas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DashboardAdapter.MiContenedorDeVistas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dashboard, parent, false);
-        MiContenedorDeVistas contenedor = new MiContenedorDeVistas(vista);
+        DashboardAdapter.MiContenedorDeVistas contenedor = new DashboardAdapter.MiContenedorDeVistas(vista);
         return contenedor;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MiContenedorDeVistas holder, int position) {
+    public void onBindViewHolder(@NonNull DashboardAdapter.MiContenedorDeVistas holder, int position) {
         Evento e = listaEventos.get(position);
         holder.tvTitulo.setText(e.getTitulo());
         holder.tvDescripcion.setText(e.getDescripcion());
