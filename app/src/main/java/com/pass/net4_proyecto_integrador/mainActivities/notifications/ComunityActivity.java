@@ -22,7 +22,7 @@ public class ComunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_comunity);
 
         bnv = findViewById(R.id.nav_view_chat);
 
