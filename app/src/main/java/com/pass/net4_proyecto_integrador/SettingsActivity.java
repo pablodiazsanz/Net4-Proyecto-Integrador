@@ -77,6 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
                 mGoogleSignInClient.signOut();
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
+                LoginActivity.USERUID = null;
                 Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -134,6 +134,8 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
                         double log = 0.0;
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         String userUid = firebaseUser.getUid();
+                        LoginActivity.USERUID = userUid;
+                        uploadImageToFirebaseStorage();
                         User usuario = new User(userUid,username, nombre, email, numero, descripcion,lat,log);
                         CollectUserData.saveFirebase(usuario);
 
@@ -193,7 +195,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_GALLERY) {
             imageUri = data.getData();
 
-            uploadImageToFirebaseStorage();
+
 
             Glide.with(this)
                     .load(imageUri)
@@ -210,7 +212,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
     }
 
     private void uploadImageToFirebaseStorage() {
-        StorageReference profileImageReference = FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
+        StorageReference profileImageReference = FirebaseStorage.getInstance().getReference("profilepics/" + LoginActivity.USERUID + ".jpg");
 
         if (imageUri != null) {
             profileImageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
