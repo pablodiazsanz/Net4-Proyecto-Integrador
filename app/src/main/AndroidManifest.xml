@@ -29,7 +29,11 @@
         android:roundIcon="@mipmap/ic_logoapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EventActivity"></activity>
+        <activity android:name=".extraActivities.UsersProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".extraActivities.EventActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mainActivities.maps.MapsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -142,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         });*/
 
 
-       //Intent intent = getIntent();
+        //Intent intent = getIntent();
         //email = intent.getStringExtra("email");
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootRef.child(USERS);

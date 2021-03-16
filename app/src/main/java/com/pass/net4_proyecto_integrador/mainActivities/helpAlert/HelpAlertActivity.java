@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,15 +28,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.pass.net4_proyecto_integrador.ContinueRegistrationActivity;
+import com.pass.net4_proyecto_integrador.extraActivities.EventActivity;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.LoginActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.maps.MapsActivity;
@@ -135,6 +131,10 @@ public class HelpAlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertarDatosFirebase();
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("eventUserId", LoginActivity.USERUID);
+                intent.putExtra("eventTitulo", etTitulo.getText().toString().trim());
+                startActivity(intent);
             }
         });
     }
