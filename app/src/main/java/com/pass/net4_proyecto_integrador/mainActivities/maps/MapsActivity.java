@@ -7,32 +7,46 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pass.net4_proyecto_integrador.CollectEventData;
 import com.pass.net4_proyecto_integrador.CollectUserData;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.LoginActivity;
 import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.User;
+import com.pass.net4_proyecto_integrador.extraActivities.EventActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.notifications.ComunityActivity;
@@ -228,6 +242,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         drawLocation(uBueno.getLatitud(),uBueno.getLongitud(),uBueno.getUsername(),uBueno.getUserId());
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                AlertDialog builder = new AlertDialog.Builder(MapsActivity.this).create();
+                LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+                View view = factory.inflate(R.layout.activity_map_event_information,
+                        null);
+
+                ImageView imgInfo = view.findViewById(R.id.img_info);
+                TextView titInfo = view.findViewById(R.id.tituloEventoInfo);
+                TextView usernameInfo = view.findViewById(R.id.usuarioInfo);
+                Button btn = view.findViewById(R.id.btn_info_Event);
+
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Events").child(marker.getTitle());
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Evento e = snapshot.getValue(Evento.class);
+                        Glide.with(getApplicationContext())
+                                .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/eventspics%2F" + marker.getTitle() + ".jpg?alt=media&token=26419bcf-488c-4c50-802a-8088e2c092b1"))
+                                .placeholder(R.drawable.user_icon)
+                                .centerCrop()
+                                //.transition(DrawableTransitionOptions.withCrossFade(300))
+                                //.circleCrop()
+                                .into(imgInfo);
+                        titInfo.setText(e.getTitulo());
+                        usernameInfo.setText(uBueno.getUsername());
+
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(v.getContext(), EventActivity.class);
+                                intent.putExtra("eventUserId", e.getUserId());
+                                intent.putExtra("eventTitulo", e.getTitulo());
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                v.getContext().startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                builder.setView(view);
+
+                builder.show();
+                return true;
+            }
+        });
     }
 
     private void drawLocationEvents(double latitud, double longitud, int gradoUrgencia, String titulo, String userId) {
@@ -239,15 +305,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (gradoUrgencia == 0) {
             mMap.addMarker(new MarkerOptions().position(ubi)
-                    .title(titulo)
+                    .title(userId+"-"+titulo)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         } else if (gradoUrgencia == 1) {
             mMap.addMarker(new MarkerOptions().position(ubi)
-                    .title(titulo)
+                    .title(userId+"-"+titulo)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         } else if (gradoUrgencia == 2) {
             mMap.addMarker(new MarkerOptions().position(ubi)
-                    .title(titulo)
+                    .title(userId+"-"+titulo)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         }
 
