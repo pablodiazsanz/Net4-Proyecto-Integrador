@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.actions.ItemListIntents;
 import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.User;
@@ -48,11 +49,11 @@ public class Community_activity_adapter extends RecyclerView.Adapter<Community_a
         holder.txt_name.setText(u.getName());
 
         Glide.with(vista)
-                .load(Uri.parse("gs://net4-515ff.appspot.com/profilepics/X5R5ti29unZaXOyJt53OYJslu843.jpg"))
-                .placeholder(R.drawable.user_icon)
+                .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/profilepics%2F" + u.getUserId()+ ".jpg?alt=media&token=dcb65d07-cace-45b4-8fb7-e38880be36ce"))
+                .placeholder(R.drawable.monster_interrogation_add_icon)
                 .centerCrop()
-                //.transition(DrawableTransitionOptions.withCrossFade(300))
-                //.circleCrop()
+                .transition(DrawableTransitionOptions.withCrossFade(300))
+                .circleCrop()
                 .into(holder.img_profile);
     }
    // gs://net4-515ff.appspot.com/profilepics/X5R5ti29unZaXOyJt53OYJslu843.jpg
