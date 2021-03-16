@@ -92,7 +92,7 @@ public class ContinueRegistrationActivity extends AppCompatActivity {
 
 
         Glide.with(this)
-                .load("android.resource://" + getPackageName() + "/" + R.drawable.monster_interrogation_add_icon)
+                .load("android.resource://" + getPackageName() + "/" + R.drawable.user_icon)
                 .transition(DrawableTransitionOptions.withCrossFade(500))
                 .into(galleryImage);
 

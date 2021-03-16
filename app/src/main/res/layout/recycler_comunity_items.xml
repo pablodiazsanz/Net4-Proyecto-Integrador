@@ -2,30 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="24dp">
+    android:layout_marginBottom="15dp">
+
 
     <ImageView
-        android:id="@+id/profilePic"
+        android:id="@+id/img_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="20dp"
         android:src="@drawable/foto_perfil" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@id/profilePic"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/img_profile"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:maxLines="1"
             android:text="Username"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +37,9 @@
             android:maxLines="1"
             android:text="Fullname of the user" />
 
+
     </LinearLayout>
+
 
 
 
