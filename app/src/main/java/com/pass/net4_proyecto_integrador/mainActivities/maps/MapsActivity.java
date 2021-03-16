@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.pass.net4_proyecto_integrador.CollectEventData;
 import com.pass.net4_proyecto_integrador.CollectUserData;
 import com.pass.net4_proyecto_integrador.Evento;
+import com.pass.net4_proyecto_integrador.LoginActivity;
 import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.User;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActivity;
@@ -40,7 +41,7 @@ import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CollectUserData.Comunicacion, CollectEventData.Comunicacion {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CollectUserData.Comunicacion, CollectEventData.ComunicacionE {
     //probar android:launchMode="singleTask"
 
     //Barra de abajo
@@ -55,7 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //context
     private Context contexto = this;
     private CollectUserData.Comunicacion collectUser = this;
-    private CollectEventData.Comunicacion collectEvent = this;
+    private CollectEventData.ComunicacionE collectEvent = this;
+    User uBueno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        CollectEventData.takeData(collectEvent);
         CollectUserData.takeData(collectUser);
+
         bnv = findViewById(R.id.nav_view_maps);
         bnv.setSelectedItemId(R.id.navigation_maps);
 
@@ -180,6 +182,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
             //Esto es el marcador con el titulo de ubicacion
             mMap.addMarker(new MarkerOptions().position(ubi).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
         }else{
             //Aqui dirigimos la camara a la ubicacion
             mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
@@ -207,17 +210,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void sendData(List<User> users) {
-        User uBueno = new User();
-        String currentUID = u.getUid();
+        uBueno = new User();
         mMap.clear();
         for (User user : users) {
-            if (user.getUserId().equals(currentUID)){
+            if (user.getUserId().equals(LoginActivity.USERUID)){
                 uBueno = user;
-                drawLocation(uBueno.getLatitud(),uBueno.getLongitud(),uBueno.getUsername(),uBueno.getUserId());
+                CollectEventData.takeData(collectEvent);
             }
         }
 
-        CollectEventData.takeData(collectEvent);
     }
 
     @Override
@@ -225,6 +226,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Evento e : listaEvento){
             drawLocationEvents(e.getLatitud(), e.getLongitud(), e.getGradoUrgencia(), e.getTitulo(), e.getUserId());
         }
+
+        drawLocation(uBueno.getLatitud(),uBueno.getLongitud(),uBueno.getUsername(),uBueno.getUserId());
     }
 
     private void drawLocationEvents(double latitud, double longitud, int gradoUrgencia, String titulo, String userId) {

@@ -15,7 +15,7 @@ public class CollectEventData {
     private static FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
     private static DatabaseReference myDatabaseReference = myDatabase.getReference("Events");
 
-    public static void takeData(CollectEventData.Comunicacion comunicacion){
+    public static void takeData(CollectEventData.ComunicacionE comunicacion){
         List<Evento> listaEventos = new ArrayList<>();
         myDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -34,7 +34,7 @@ public class CollectEventData {
         });
     }
 
-    public interface Comunicacion{
+    public interface ComunicacionE{
         void sendDataEvento(List<Evento> listaEvento);
     }
 }
