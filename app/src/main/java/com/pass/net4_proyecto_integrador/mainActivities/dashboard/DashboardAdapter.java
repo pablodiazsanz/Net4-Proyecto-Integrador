@@ -42,7 +42,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MiCo
         holder.tvTitulo.setText(e.getTitulo());
         holder.tvDescripcion.setText(e.getDescripcion());
         holder.tvFecha.setText(e.getFecha());
-        holder.tvUrgencia.setText(e.getGradoUrgencia());
 
         Glide.with(vista)
                 .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/eventspics%2F" + e.getUserId()+"-" + e.getTitulo() + ".jpg?alt=media&token=26419bcf-488c-4c50-802a-8088e2c092b1"))

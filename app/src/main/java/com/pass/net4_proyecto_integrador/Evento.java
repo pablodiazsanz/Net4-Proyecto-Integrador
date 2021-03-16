@@ -2,16 +2,20 @@ package com.pass.net4_proyecto_integrador;
 
 public class Evento {
 
-    private String titulo, descripcion, gradoUrgencia, userId, fecha;
+    private String titulo, descripcion, userId, fecha;
+    private double latitud, longitud;
+    private int gradoUrgencia;
 
     public Evento(){}
 
-    public Evento(String userId, String titulo, String descripcion, String gradoUrgencia, String fecha) {
+    public Evento(String userId, String titulo, String descripcion, int gradoUrgencia, String fecha, double latitud, double longitud) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.gradoUrgencia = gradoUrgencia;
         this.userId = userId;
         this.fecha = fecha;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public String getTitulo() {
@@ -30,18 +34,28 @@ public class Evento {
         return descripcion;
     }
 
-    public String getGradoUrgencia() {
+    public int getGradoUrgencia() {
         return gradoUrgencia;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
     }
 
     @Override
     public String toString() {
         return "Evento{" +
                 "titulo='" + titulo + '\'' +
-                "userId='" + userId + '\'' +
-                "fecha='" + fecha + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", gradoUrgencia='" + gradoUrgencia + '\'' +
+                ", userId='" + userId + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
                 '}';
     }
 }

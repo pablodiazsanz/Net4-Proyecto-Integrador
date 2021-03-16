@@ -28,11 +28,15 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.pass.net4_proyecto_integrador.User;
 import com.pass.net4_proyecto_integrador.extraActivities.EventActivity;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.LoginActivity;
@@ -51,6 +55,7 @@ public class HelpAlertActivity extends AppCompatActivity {
     Spinner spUrgencia;
     Button btnSubirFoto, btnSolicitarAyuda;
     int posicionUrgencia;
+    double latitud, longitud;
     ImageView ivPedirAyuda;
     Uri imageUri;
     String profileImageUrl;
@@ -95,6 +100,22 @@ public class HelpAlertActivity extends AppCompatActivity {
         btnSubirFoto = findViewById(R.id.btn_subir_foto);
         btnSolicitarAyuda = findViewById(R.id.btn_solicitar);
         ivPedirAyuda = findViewById(R.id.imageview_pedirayuda);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(LoginActivity.USERUID);
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+                latitud = u.getLatitud();
+                longitud = u.getLongitud();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         String[] tipoUrgencia = {"No es urgente","Urgente","Muy urgente"};
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,tipoUrgencia);
@@ -146,7 +167,9 @@ public class HelpAlertActivity extends AppCompatActivity {
         Date objDate = new Date();
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Events");
-        Evento e = new Evento(LoginActivity.USERUID, titulo, descripcion, tipoUrgencia[posicionUrgencia], objDate.toString());
+
+
+        Evento e = new Evento(LoginActivity.USERUID, titulo, descripcion, posicionUrgencia, objDate.toString(), latitud, longitud);
         myRef.child(LoginActivity.USERUID+"-"+titulo).setValue(e);
         uploadImageToFirebaseStorage();
         Toast.makeText(getApplicationContext(), "Ayuda Pedida correctamente", Toast.LENGTH_LONG).show();
