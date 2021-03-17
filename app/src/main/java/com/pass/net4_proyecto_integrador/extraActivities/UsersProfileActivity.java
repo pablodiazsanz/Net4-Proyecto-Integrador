@@ -74,15 +74,19 @@ public class UsersProfileActivity extends AppCompatActivity {
                 User u = snapshot.getValue(User.class);
                 tituloPerfil.setText(u.getUsername());
                 descripcionPerfil.setText(u.getDescription());
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> addresses = null;
-                try {
-                    addresses = geocoder.getFromLocation(u.getLatitud(), u.getLongitud(), 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (u.getLatitud() == 0.0 && u.getLongitud() == 0.0){
+                    txtLocation.setText("Actualiza tu ubicación");
+                } else {
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    List<Address> addresses = null;
+                    try {
+                        addresses = geocoder.getFromLocation(u.getLatitud(), u.getLongitud(), 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String cityName = addresses.get(0).getAddressLine(0);
+                    txtLocation.setText(cityName);
                 }
-                String cityName = addresses.get(0).getAddressLine(0);
-                txtLocation.setText(cityName);
             }
 
             @Override
