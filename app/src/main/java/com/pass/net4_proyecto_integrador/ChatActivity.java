@@ -56,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
 
         toolbar.setTitle("Chat " + tituloEvent);
 
+
         DatabaseReference referenceChat = FirebaseDatabase.getInstance().getReference();
         DatabaseReference referenceMessage = referenceChat.child("Chats").child(userUId + "-" + tituloEvent);
         DatabaseReference referenceUser = referenceChat.child("Users").child(LoginActivity.USERUID);
@@ -76,9 +77,12 @@ public class ChatActivity extends AppCompatActivity {
         referenceMessage.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot>datos = snapshot.getChildren();
+                Iterable<DataSnapshot> datos = snapshot.getChildren();
                 listaMensajes = new ArrayList<>();
-                for (DataSnapshot d : datos){
+                listaMensajes.add(new Mensajes("Ayudemonos entre nosotros!", "Asistente Virtual", "", cogerHora()[0]));
+                insertarDatos();
+
+                for (DataSnapshot d : datos) {
                     Log.d("ERRORACO", snapshot.toString());
                     listaMensajes.add(d.getValue(Mensajes.class));
                     insertarDatos();
@@ -92,12 +96,11 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String[] hora = cogerHora();
-                Mensajes m = new Mensajes(txtMensaje.getText().toString().trim(),username,LoginActivity.USERUID,hora[0]);
+                Mensajes m = new Mensajes(txtMensaje.getText().toString().trim(), username, LoginActivity.USERUID, hora[0]);
                 referenceMessage.child(hora[1]).setValue(m);
                 txtMensaje.setText("");
             }
@@ -106,11 +109,11 @@ public class ChatActivity extends AppCompatActivity {
         recyclerViewChat.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if ( bottom < oldBottom) {
+                if (bottom < oldBottom) {
                     recyclerViewChat.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            recyclerViewChat.smoothScrollToPosition(adaptador.getItemCount()-1);
+                                recyclerViewChat.smoothScrollToPosition(adaptador.getItemCount() - 1);
                         }
                     }, 100);
                 }
@@ -137,6 +140,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setScrollBar() {
-        recyclerViewChat.scrollToPosition(adaptador.getItemCount()-1);
+        recyclerViewChat.scrollToPosition(adaptador.getItemCount() - 1);
     }
 }
