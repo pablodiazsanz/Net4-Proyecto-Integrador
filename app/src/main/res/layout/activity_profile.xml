@@ -38,12 +38,35 @@
                     android:id="@+id/textViewUserNameProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="160dp"
-                    android:layout_marginTop="55dp"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginTop="25dp"
                     android:text="Pablo Díaz"
                     android:textColor="@color/themeColor"
                     android:textSize="25dp"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_baseline_location_on_24"/>
+
+                    <TextView
+                        android:id="@+id/txt_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ubicacion"
+                        android:layout_marginStart="10dp"
+                        android:textSize="17dp"/>
+
+                </LinearLayout>
 
 
 
@@ -171,7 +194,8 @@
                             style="@style/modifiedEditText"
                             android:text="Díaz Lorem ipsnse"
                             android:textSize="16dp"
-                            android:inputType="textPersonName"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
                             android:textStyle="bold"
 
                             android:backgroundTint="@color/colorPrimary"/>

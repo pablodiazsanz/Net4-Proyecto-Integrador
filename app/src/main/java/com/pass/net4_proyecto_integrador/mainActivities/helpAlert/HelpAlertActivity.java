@@ -154,9 +154,7 @@ public class HelpAlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertarDatosFirebase();
-                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
-                intent.putExtra("eventUserId", LoginActivity.USERUID);
-                intent.putExtra("eventTitulo", etTitulo.getText().toString().trim());
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 startActivity(intent);
             }
         });
