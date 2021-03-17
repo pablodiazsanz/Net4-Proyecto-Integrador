@@ -38,8 +38,8 @@
                     android:id="@+id/textViewUserNameProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="160dp"
+                    android:layout_marginTop="55dp"
                     android:text="Pablo Díaz"
                     android:textColor="@color/themeColor"
                     android:textSize="25dp"
@@ -51,7 +51,7 @@
                     android:id="@+id/imageViewProfilePhoto"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="23dp"
                     android:src="@drawable/foto_perfil"/>
 
@@ -141,7 +141,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:textColorHint="@color/colorAccent"
                         app:helperText="Teléfono"
                         app:helperTextTextColor="@color/colorAccent"

@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/layout_bg"
+    android:layout_margin="5dp"
     android:layout_height="100dp">
 
 
@@ -20,6 +22,8 @@
         android:id="@+id/text_mensaje_caht_View"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
+        android:textColor="@color/whiteTextColor"
+        android:text="mensajito guapo guapo"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/img_chat_view"
         app:layout_constraintStart_toEndOf="@+id/img_chat_view" />
@@ -28,6 +32,8 @@
         android:id="@+id/text_username_chat_View"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:textColor="@color/whiteTextColor"
+        android:text="Username"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/img_chat_view"
         app:layout_constraintTop_toTopOf="@+id/img_chat_view" />
@@ -37,6 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="houa"
+        android:textColor="@color/whiteTextColor"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
