@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".mainActivities.dashboard.DashboardActivity">
+    tools:context=".mainActivities.dashboard.DashboardActivity"
+    android:background="@color/colorFondoGrisClaro">
 
 
     <com.google.android.material.card.MaterialCardView
