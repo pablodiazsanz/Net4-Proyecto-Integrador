@@ -46,7 +46,10 @@ import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActiv
 import com.pass.net4_proyecto_integrador.mainActivities.notifications.ComunityActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.profile.ProfileActivity;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class HelpAlertActivity extends AppCompatActivity {
 
@@ -169,10 +172,19 @@ public class HelpAlertActivity extends AppCompatActivity {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Events");
 
 
-        Evento e = new Evento(LoginActivity.USERUID, titulo, descripcion, posicionUrgencia, objDate.toString(), latitud, longitud);
+        Evento e = new Evento(LoginActivity.USERUID, titulo, descripcion, posicionUrgencia, obtenerFecha(), latitud, longitud);
         myRef.child(LoginActivity.USERUID+"-"+titulo).setValue(e);
         uploadImageToFirebaseStorage();
         Toast.makeText(getApplicationContext(), "Ayuda Pedida correctamente", Toast.LENGTH_LONG).show();
+    }
+
+    private String obtenerFecha() {
+        Timestamp stamp = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(stamp.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
     private void uploadImageToFirebaseStorage() {

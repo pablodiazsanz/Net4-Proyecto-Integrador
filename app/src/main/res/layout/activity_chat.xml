@@ -23,22 +23,31 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_chat"
             android:layout_width="match_parent"
-            android:layout_height="590dp" />
+            android:layout_height="match_parent"
+            android:windowSoftInputMode="adjustResize"
+            android:layout_above="@+id/llenviar"/>
 
         <LinearLayout
+            android:id="@+id/llenviar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
 
             <EditText
                 android:id="@+id/edit_txt_chat"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:hint="@string/textoChat"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"/>
 
             <Button
                 android:id="@+id/btn_chat"
@@ -47,5 +56,6 @@
                 android:layout_height="wrap_content"
                 android:text="Enviar" />
         </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
