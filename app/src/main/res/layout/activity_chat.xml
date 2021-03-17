@@ -40,22 +40,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/whiteTextColor"
+            android:background="@color/colorFondoGris"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
+            android:gravity="center"
+            android:layout_alignParentBottom="true"> 
 
             <EditText
                 android:id="@+id/edit_txt_chat"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
                 android:hint="@string/textoChat"
                 android:textColor="@color/black"/>
 
             <Button
                 android:id="@+id/btn_chat"
-                style="@style/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/themeColor"
                 android:text="Enviar" />
         </LinearLayout>
         </RelativeLayout>
