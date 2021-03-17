@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorFondoGris"
     tools:context=".ChatActivity">
 
     <LinearLayout
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/whiteTextColor"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true">
 
