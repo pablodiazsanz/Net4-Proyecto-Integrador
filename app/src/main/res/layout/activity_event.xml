@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorFondoGris"
+    android:background="@color/colorFondoGrisClaro"
     android:fitsSystemWindows="true"
     tools:context=".extraActivities.EventActivity">
 
@@ -13,170 +13,143 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/toolbar_evento"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:title="Evento"
-            app:titleTextColor="@color/colorAccent">
-
-        </androidx.appcompat.widget.Toolbar>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorFondoGris"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tituloEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HOLAHOLA"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="30dp"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/imgEvento"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/round_image_view"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:layout_marginTop="5dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/descripcionEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="La descripción se escribe aqui"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="14dp" />
 
-                        <ImageView
-                            android:id="@+id/imgEvento"
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/round_image_view"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha"
+                    android:textSize="18dp"/>
 
-                        <TextView
-                            android:id="@+id/tituloEvento"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOLAHOLA"
-                            android:textAlignment="center"
-                            android:textColor="@color/primaryTextColor"
-                            android:textSize="30dp" />
+                <TextView
+                    android:id="@+id/fechaEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="La fecha se escribe aqui"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="14dp" />
 
-                    </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
-                    app:cardCornerRadius="8dp">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Descripcion"
-                            android:layout_marginTop="5dp"/>
-
-                        <TextView
-                            android:id="@+id/descripcionEvento"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="La descripción se escribe aqui"
-                            android:textColor="@color/primaryTextColor"
-                            android:textSize="17dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fecha" />
-
-                        <TextView
-                            android:id="@+id/fechaEvento"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="La fecha se escribe aqui"
-                            android:textColor="@color/primaryTextColor"
-                            android:textSize="17dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Usuario" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/imgPerfilEvento"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp" />
-
-                            <TextView
-                                android:id="@+id/usernamePerfilEvento"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:text="UsuarioChulo"
-                                android:textColor="@color/primaryTextColor"
-                                android:textSize="17dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                    </ScrollView>
-                </androidx.cardview.widget.CardView>
-
+            </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/colorFondoGris"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/imgPerfilEvento"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="100dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"/>
+
+                    <TextView
+                        android:id="@+id/usernamePerfilEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="3dp"
+                        android:text="UsuarioChulo"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="17dp" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:background="@color/colorFondoGris"
 
-                    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    >
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/btn_mosperf"
-                        style="@style/loginButton"
-                        android:layout_gravity="center"
-                        android:text="Mostrar Perfil"
-                        app:initialCornerAngle="27dp"
-                        app:spinning_bar_color="#FFF"
-                        app:spinning_bar_padding="6dp"
-                        app:spinning_bar_width="4dp" />
-
-                    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                        android:text="Perfil"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/colorAccent"
+                        />
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/btn_chat"
-                        style="@style/loginButton"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:text="Ir al Chat"
-                        app:initialCornerAngle="27dp"
-                        app:spinning_bar_color="#FFF"
-                        app:spinning_bar_padding="6dp"
-                        app:spinning_bar_width="4dp" />
+                        android:text="Chat"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/colorAccent"/>
+
                 </LinearLayout>
             </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
         </ScrollView>
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
