@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -48,6 +51,9 @@ import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardActiv
 import com.pass.net4_proyecto_integrador.mainActivities.helpAlert.HelpAlertActivity;
 import com.pass.net4_proyecto_integrador.mainActivities.notifications.ComunityActivity;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -60,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
    DatabaseReference databaseReference;
 
 
-    private TextView usernameTxtView, nameTxtView, emailTxtView, phoneNumberTxtView, descriptionTxtView;
+    private TextView usernameTxtView, nameTxtView, emailTxtView, phoneNumberTxtView, descriptionTxtView, txtLocation;
     private ImageView img;
     private final String TAG = this.getClass().getName().toUpperCase();
     private FirebaseDatabase database;
@@ -153,10 +159,12 @@ public class ProfileActivity extends AppCompatActivity {
         emailTxtView = findViewById(R.id.emailEditText);
         phoneNumberTxtView = findViewById(R.id.phoneEditText);
         descriptionTxtView = findViewById(R.id.descriptionEditText);
+        txtLocation = findViewById(R.id.txt_location);
 
         // Read from the database
         userRef.addValueEventListener(new ValueEventListener() {
             String name, username, mail, phone, description;
+            double latitud, longitud;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot keyId: dataSnapshot.getChildren()) {
@@ -166,6 +174,19 @@ public class ProfileActivity extends AppCompatActivity {
                         mail = keyId.child("email").getValue(String.class);
                         phone = keyId.child("phoneNumber").getValue(String.class);
                         description = keyId.child("description").getValue(String.class);
+                        latitud = keyId.child("latitud").getValue(double.class);
+                        longitud = keyId.child("longitud").getValue(double.class);
+
+                        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geocoder.getFromLocation(latitud, longitud, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        String cityName = addresses.get(0).getAddressLine(0);
+                        txtLocation.setText(cityName);
+
                         Log.v("username",username);
                         break;
                     }

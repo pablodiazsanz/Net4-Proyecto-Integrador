@@ -188,12 +188,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void drawLocation(double latitud, double longitud, String nombre,String userID) {
-        //Aqui se pasan las coordenadas
-        LatLng ubi = new LatLng(latitud, longitud);
-        //Aqui dirigimos la camara a la ubicacion
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
-        //Esto es el marcador con el titulo de ubicacion
-        mMap.addMarker(new MarkerOptions().position(ubi).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+        if (latitud == 0.0 && longitud == 0.0){
+            Toast.makeText(getApplicationContext(), "Pulsa el botón para recargar la ubicación", Toast.LENGTH_LONG).show();
+        } else {
+            //Aqui se pasan las coordenadas
+            LatLng ubi = new LatLng(latitud, longitud);
+            //Aqui dirigimos la camara a la ubicacion
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
+            //Esto es el marcador con el titulo de ubicacion
+            mMap.addMarker(new MarkerOptions().position(ubi).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        }
     }
 
     private String changeName() {

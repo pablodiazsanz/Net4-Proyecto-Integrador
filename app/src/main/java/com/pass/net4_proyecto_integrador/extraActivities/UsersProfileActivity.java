@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +26,10 @@ import com.pass.net4_proyecto_integrador.R;
 import com.pass.net4_proyecto_integrador.User;
 import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class UsersProfileActivity extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class UsersProfileActivity extends AppCompatActivity {
     RecyclerView.LayoutManager gestor;
     UsersProfileAdapter miAdaptador;
 
-    TextView tituloPerfil, descripcionPerfil;
+    TextView tituloPerfil, descripcionPerfil, txtLocation;
     ImageView imgPerfil;
 
     @Override
@@ -46,6 +51,7 @@ public class UsersProfileActivity extends AppCompatActivity {
         tituloPerfil = findViewById(R.id.tituloPerfil);
         descripcionPerfil = findViewById(R.id.descripcionPerfil);
         imgPerfil = findViewById(R.id.imgPerfilPerfil);
+        txtLocation = findViewById(R.id.txt_location_users);
 
         Intent intent = getIntent();
         String userID = intent.getStringExtra("userId");
@@ -68,6 +74,15 @@ public class UsersProfileActivity extends AppCompatActivity {
                 User u = snapshot.getValue(User.class);
                 tituloPerfil.setText(u.getUsername());
                 descripcionPerfil.setText(u.getDescription());
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(u.getLatitud(), u.getLongitud(), 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String cityName = addresses.get(0).getAddressLine(0);
+                txtLocation.setText(cityName);
             }
 
             @Override
