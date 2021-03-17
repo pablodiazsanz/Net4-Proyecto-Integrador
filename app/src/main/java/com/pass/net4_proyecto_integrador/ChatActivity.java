@@ -103,7 +103,19 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
+        recyclerViewChat.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if ( bottom < oldBottom) {
+                    recyclerViewChat.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerViewChat.smoothScrollToPosition(adaptador.getItemCount()-1);
+                        }
+                    }, 100);
+                }
+            }
+        });
     }
 
     private void insertarDatos() {

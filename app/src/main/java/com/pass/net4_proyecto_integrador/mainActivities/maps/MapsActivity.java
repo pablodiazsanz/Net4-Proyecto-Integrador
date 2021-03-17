@@ -190,19 +190,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void drawLocation(double latitud, double longitud, String nombre,String userID) {
         //Aqui se pasan las coordenadas
         LatLng ubi = new LatLng(latitud, longitud);
-        String currentUID = u.getUid();
-        if(userID.equals(currentUID)) {
-            //Aqui dirigimos la camara a la ubicacion
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
-            //Esto es el marcador con el titulo de ubicacion
-            mMap.addMarker(new MarkerOptions().position(ubi).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
-        }else{
-            //Aqui dirigimos la camara a la ubicacion
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(ubi));
-            //Esto es el marcador con el titulo de ubicacion
-            mMap.addMarker(new MarkerOptions().position(ubi).title(nombre));
-        }
+        //Aqui dirigimos la camara a la ubicacion
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubi, 13));
+        //Esto es el marcador con el titulo de ubicacion
+        mMap.addMarker(new MarkerOptions().position(ubi).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
     }
 
     private String changeName() {
@@ -245,6 +236,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                if (marker.getTitle().equals(uBueno.getUsername())){
+                    return false;
+                }
                 AlertDialog builder = new AlertDialog.Builder(MapsActivity.this).create();
                 LayoutInflater factory = LayoutInflater.from(getApplicationContext());
                 View view = factory.inflate(R.layout.activity_map_event_information,
