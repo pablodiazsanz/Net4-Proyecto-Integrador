@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".extraActivities.EventActivity"
-            android:parentActivityName=".mainActivities.dashboard.DashboardActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".ChatActivity"
             android:theme="@style/AppTheme.NoActionBar">

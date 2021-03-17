@@ -1,6 +1,7 @@
 package com.pass.net4_proyecto_integrador.extraActivities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pass.net4_proyecto_integrador.ChatActivity;
 import com.pass.net4_proyecto_integrador.Evento;
 import com.pass.net4_proyecto_integrador.R;
+
+import static com.pass.net4_proyecto_integrador.R.drawable.logo_net4;
 
 public class EventActivity extends AppCompatActivity {
 

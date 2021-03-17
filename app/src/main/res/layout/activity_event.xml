@@ -13,6 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar_profile"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="Evento"
+            app:titleTextColor="@color/colorAccent"/>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

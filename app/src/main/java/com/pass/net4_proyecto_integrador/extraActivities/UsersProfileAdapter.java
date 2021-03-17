@@ -19,7 +19,7 @@ import com.pass.net4_proyecto_integrador.mainActivities.dashboard.DashboardAdapt
 
 import java.util.ArrayList;
 
-public class UsersProfileAdapter extends RecyclerView.Adapter<DashboardAdapter.MiContenedorDeVistas>{
+public class UsersProfileAdapter extends RecyclerView.Adapter<UsersProfileAdapter.MiContenedorDeVistas>{
 
     private ArrayList<Evento> listaEventos;
     View vista;
@@ -30,23 +30,24 @@ public class UsersProfileAdapter extends RecyclerView.Adapter<DashboardAdapter.M
 
     @NonNull
     @Override
-    public DashboardAdapter.MiContenedorDeVistas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UsersProfileAdapter.MiContenedorDeVistas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dashboard, parent, false);
-        DashboardAdapter.MiContenedorDeVistas contenedor = new DashboardAdapter.MiContenedorDeVistas(vista);
+        UsersProfileAdapter.MiContenedorDeVistas contenedor = new UsersProfileAdapter.MiContenedorDeVistas(vista);
         return contenedor;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DashboardAdapter.MiContenedorDeVistas holder, int position) {
+    public void onBindViewHolder(@NonNull UsersProfileAdapter.MiContenedorDeVistas holder, int position) {
         Evento e = listaEventos.get(position);
+        String[] tipoUrgencia = {"No es urgente","Urgente","Muy urgente"};
+
         holder.tvTitulo.setText(e.getTitulo());
         holder.tvDescripcion.setText(e.getDescripcion());
         holder.tvFecha.setText(e.getFecha());
-        holder.tvUrgencia.setText(e.getGradoUrgencia());
-
+        holder.tvUrgencia.setText(tipoUrgencia[e.getGradoUrgencia()]);
         Glide.with(vista)
                 .load(Uri.parse("https://firebasestorage.googleapis.com/v0/b/net4-515ff.appspot.com/o/eventspics%2F" + e.getUserId()+"-" + e.getTitulo() + ".jpg?alt=media&token=26419bcf-488c-4c50-802a-8088e2c092b1"))
-                .placeholder(R.drawable.monster_interrogation_add_icon)
+                .placeholder(R.drawable.user_icon)
                 .centerCrop()
                 //.transition(DrawableTransitionOptions.withCrossFade(300))
                 //.circleCrop()
