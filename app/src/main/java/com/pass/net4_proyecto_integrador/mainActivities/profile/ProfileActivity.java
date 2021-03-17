@@ -177,15 +177,19 @@ public class ProfileActivity extends AppCompatActivity {
                         latitud = keyId.child("latitud").getValue(double.class);
                         longitud = keyId.child("longitud").getValue(double.class);
 
-                        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                        List<Address> addresses = null;
-                        try {
-                            addresses = geocoder.getFromLocation(latitud, longitud, 1);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (latitud == 0.0 && longitud == 0.0){
+                            txtLocation.setText("Actualiza tu ubicación");
+                        } else {
+                            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                            List<Address> addresses = null;
+                            try {
+                                addresses = geocoder.getFromLocation(latitud, longitud, 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String cityName = addresses.get(0).getAddressLine(0);
+                            txtLocation.setText(cityName);
                         }
-                        String cityName = addresses.get(0).getAddressLine(0);
-                        txtLocation.setText(cityName);
 
                         Log.v("username",username);
                         break;

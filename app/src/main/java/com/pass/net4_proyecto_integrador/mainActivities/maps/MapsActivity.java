@@ -254,6 +254,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 TextView usernameInfo = view.findViewById(R.id.usuarioInfo);
                 Button btn = view.findViewById(R.id.btn_info_Event);
 
+                String[] getData = marker.getTitle().split("-");
+
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(getData[0]);
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User u = snapshot.getValue(User.class);
+                        usernameInfo.setText(u.getUsername());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Events").child(marker.getTitle());
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -267,7 +283,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 //.circleCrop()
                                 .into(imgInfo);
                         titInfo.setText(e.getTitulo());
-                        usernameInfo.setText(uBueno.getUsername());
+
 
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
