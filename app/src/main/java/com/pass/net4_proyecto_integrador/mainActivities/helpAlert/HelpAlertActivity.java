@@ -100,7 +100,6 @@ public class HelpAlertActivity extends AppCompatActivity {
         etTitulo = findViewById(R.id.editTextTitulo);
         etDescripcion = findViewById(R.id.editTextDescripcionn);
         spUrgencia = findViewById(R.id.spinner_urgencia);
-        btnSubirFoto = findViewById(R.id.btn_subir_foto);
         btnSolicitarAyuda = findViewById(R.id.btn_solicitar);
         ivPedirAyuda = findViewById(R.id.imageview_pedirayuda);
 
@@ -136,7 +135,7 @@ public class HelpAlertActivity extends AppCompatActivity {
             }
         });
 
-        btnSubirFoto.setOnClickListener(new View.OnClickListener() {
+        ivPedirAyuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
